@@ -1,0 +1,14 @@
+node_modules
+.next
+out
+.env
+.env.local
+*.tsbuildinfo
+next-env.d.ts
+test-results
+playwright-report
+
+# Private / local-only — do not push to GitHub
+personal_profile.md
+AGENTS.md
+.cursor/
