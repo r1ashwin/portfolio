@@ -3,7 +3,13 @@
 Copy this file to **`personal_profile.md`** in the repo root on your machine only.
 That file is **gitignored** so detailed personal data stays off GitHub.
 
-The digital twin API reads `personal_profile.md` when present; otherwise it uses a small built-in public summary.
+## How the digital twin loads this (priority)
+
+1. **`PERSONAL_PROFILE_MARKDOWN`** (environment variable) — set this on **Vercel** (Settings → Environment Variables). Paste your full markdown there so production uses the same depth as local, without committing the file.
+2. **`personal_profile.md`** in the project root — used automatically in local dev when the env var is unset.
+3. If neither exists, the API uses a short **built-in public summary** in code.
+
+Never commit real `personal_profile.md` or put the full text in the repo.
 
 ## Basics
 

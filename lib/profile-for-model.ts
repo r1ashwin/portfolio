@@ -14,17 +14,27 @@ export function sanitizeProfileMarkdown(md: string): string {
 
 const MAX_CONTEXT_CHARS = 48_000;
 
+function truncateKnowledge(cleaned: string): string {
+  if (cleaned.length <= MAX_CONTEXT_CHARS) return cleaned;
+  return `${cleaned.slice(0, MAX_CONTEXT_CHARS)}\n\n[Profile truncated for length.]`;
+}
+
 /**
- * Load personal_profile.md from repo root if present; otherwise use a minimal public summary.
+ * Knowledge for the digital twin, in priority order:
+ * 1. `PERSONAL_PROFILE_MARKDOWN` env var — use on Vercel (never commit); paste full markdown in project settings.
+ * 2. `personal_profile.md` in repo root — local dev; file is gitignored for privacy.
+ * 3. Built-in public fallback if neither exists.
  */
 export async function loadKnowledgeForModel(): Promise<string> {
+  const fromEnv = process.env.PERSONAL_PROFILE_MARKDOWN?.trim();
+  if (fromEnv) {
+    return truncateKnowledge(sanitizeProfileMarkdown(fromEnv));
+  }
+
   const filePath = path.join(process.cwd(), "personal_profile.md");
   try {
     const raw = await readFile(filePath, "utf8");
-    const cleaned = sanitizeProfileMarkdown(raw);
-    return cleaned.length > MAX_CONTEXT_CHARS
-      ? `${cleaned.slice(0, MAX_CONTEXT_CHARS)}\n\n[Profile truncated for length.]`
-      : cleaned;
+    return truncateKnowledge(sanitizeProfileMarkdown(raw));
   } catch {
     return FALLBACK_KNOWLEDGE;
   }
