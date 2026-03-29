@@ -1,11 +1,18 @@
 const MAX_LOG_CHARS = 45000;
 
+function trimmedEnv(name: string): string | undefined {
+  const v = process.env[name];
+  if (v == null) return undefined;
+  const t = v.trim();
+  return t === "" ? undefined : t;
+}
+
 function githubLoggingConfigured(): boolean {
   return Boolean(
-    process.env.CHAT_LOG_GITHUB_TOKEN &&
-      process.env.CHAT_LOG_GITHUB_REPO_OWNER &&
-      process.env.CHAT_LOG_GITHUB_REPO_NAME &&
-      process.env.CHAT_LOG_GITHUB_LOG_PATH,
+    trimmedEnv("CHAT_LOG_GITHUB_TOKEN") &&
+      trimmedEnv("CHAT_LOG_GITHUB_REPO_OWNER") &&
+      trimmedEnv("CHAT_LOG_GITHUB_REPO_NAME") &&
+      trimmedEnv("CHAT_LOG_GITHUB_LOG_PATH"),
   );
 }
 
@@ -21,10 +28,11 @@ function toCsvCell(value: string): string {
 }
 
 async function getExistingFile() {
-  const owner = process.env.CHAT_LOG_GITHUB_REPO_OWNER!;
-  const repo = process.env.CHAT_LOG_GITHUB_REPO_NAME!;
-  const path = process.env.CHAT_LOG_GITHUB_LOG_PATH!;
-  const token = process.env.CHAT_LOG_GITHUB_TOKEN!;
+  const owner = trimmedEnv("CHAT_LOG_GITHUB_REPO_OWNER")!;
+  const repo = trimmedEnv("CHAT_LOG_GITHUB_REPO_NAME")!;
+  const pathRaw = trimmedEnv("CHAT_LOG_GITHUB_LOG_PATH")!;
+  const path = pathRaw.replace(/^\/+/, "");
+  const token = trimmedEnv("CHAT_LOG_GITHUB_TOKEN")!;
 
   const url = `https://api.github.com/repos/${owner}/${repo}/contents/${encodeURIComponent(
     path,
@@ -67,10 +75,11 @@ async function getExistingFile() {
 }
 
 async function putFile(newContent: string, sha: string | null) {
-  const owner = process.env.CHAT_LOG_GITHUB_REPO_OWNER!;
-  const repo = process.env.CHAT_LOG_GITHUB_REPO_NAME!;
-  const path = process.env.CHAT_LOG_GITHUB_LOG_PATH!;
-  const token = process.env.CHAT_LOG_GITHUB_TOKEN!;
+  const owner = trimmedEnv("CHAT_LOG_GITHUB_REPO_OWNER")!;
+  const repo = trimmedEnv("CHAT_LOG_GITHUB_REPO_NAME")!;
+  const pathRaw = trimmedEnv("CHAT_LOG_GITHUB_LOG_PATH")!;
+  const path = pathRaw.replace(/^\/+/, "");
+  const token = trimmedEnv("CHAT_LOG_GITHUB_TOKEN")!;
 
   const url = `https://api.github.com/repos/${owner}/${repo}/contents/${encodeURIComponent(
     path,

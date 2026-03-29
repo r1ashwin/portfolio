@@ -121,10 +121,12 @@ export async function POST(req: NextRequest) {
             }
           }
           controller.enqueue(encoder.encode("data: [DONE]\n\n"));
-          controller.close();
+          /* Await GitHub log before closing the stream: Vercel serverless can freeze
+           * the invocation as soon as the response finishes; fire-and-forget often never completes. */
           if (userLogged != null) {
-            void appendGithubTwinLog(userLogged, assistantFull);
+            await appendGithubTwinLog(userLogged, assistantFull);
           }
+          controller.close();
         } catch (err) {
           controller.error(err);
         }
