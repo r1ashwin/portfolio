@@ -9,7 +9,7 @@ export default function Home() {
 
       <main className="relative z-1 mx-auto flex min-h-screen w-full max-w-[1400px] flex-col px-4 pb-6 pt-6 lg:flex-row lg:items-center lg:justify-between lg:gap-10 lg:px-8 lg:pb-10 lg:pt-8 xl:gap-16 xl:px-12">
         {/* Hub: first on mobile (above intro), right side on large screens */}
-        <div className="order-1 flex min-h-[min(50vh,460px)] flex-1 items-center justify-center pb-1 pt-2 lg:order-2 lg:min-h-0 lg:flex-[1.15] lg:py-0">
+        <div className="order-1 flex min-h-[min(52vh,500px)] flex-1 items-center justify-center pb-1 pt-2 lg:order-2 lg:min-h-0 lg:flex-[1.15] lg:py-0">
           <HubCluster />
         </div>
 
@@ -36,7 +36,7 @@ export default function Home() {
             >
               I love{" "}
               <span className="text-zinc-200">
-                hardware, machine learning, and software that ships
+                hardware and software that ships
               </span>
               , and most of what sits around them too: robots, research
               problems, competitions, side projects, anything that gets past

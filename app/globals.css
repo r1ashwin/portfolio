@@ -61,6 +61,104 @@ body {
   animation: float 3s ease-in-out infinite;
 }
 
+/* Hub backdrop: very slow drifting soft “clouds” (rose / zinc / near-black) */
+@keyframes hub-cloud-drift-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(4%, 3%, 0) scale(1.04);
+  }
+  66% {
+    transform: translate3d(-3%, 4%, 0) scale(0.99);
+  }
+}
+
+@keyframes hub-cloud-drift-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-5%, -4%, 0) scale(1.06);
+  }
+}
+
+@keyframes hub-cloud-drift-c {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(4%, -5%, 0);
+  }
+}
+
+.hub-cloud {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.hub-cloud--a {
+  width: min(88vw, 760px);
+  height: min(72vw, 560px);
+  left: -18%;
+  top: 2%;
+  background: radial-gradient(
+    ellipse 78% 68% at 42% 48%,
+    rgba(136, 19, 55, 0.16),
+    rgba(39, 39, 42, 0.14) 48%,
+    transparent 72%
+  );
+  filter: blur(52px);
+  opacity: 0.85;
+  animation: hub-cloud-drift-a 88s ease-in-out infinite;
+}
+
+.hub-cloud--b {
+  width: min(95vw, 820px);
+  height: min(62vw, 480px);
+  right: -22%;
+  top: 28%;
+  background: radial-gradient(
+    ellipse 72% 62% at 55% 45%,
+    rgba(63, 63, 70, 0.28),
+    rgba(24, 24, 27, 0.18) 52%,
+    transparent 70%
+  );
+  filter: blur(56px);
+  opacity: 0.7;
+  animation: hub-cloud-drift-b 115s ease-in-out infinite;
+}
+
+.hub-cloud--c {
+  width: min(70vw, 540px);
+  height: min(58vw, 420px);
+  left: 18%;
+  bottom: -8%;
+  background: radial-gradient(
+    ellipse 70% 58% at 48% 42%,
+    rgba(76, 5, 25, 0.12),
+    rgba(9, 9, 11, 0.22) 55%,
+    transparent 74%
+  );
+  filter: blur(60px);
+  opacity: 0.65;
+  animation: hub-cloud-drift-c 102s ease-in-out infinite;
+}
+
+.hub-clouds-wrap {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0.42;
+  mix-blend-mode: normal;
+}
+
 @keyframes twin-backdrop-in {
   from {
     opacity: 0;
@@ -90,6 +188,12 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .hub-cloud--a,
+  .hub-cloud--b,
+  .hub-cloud--c {
+    animation: none;
+  }
+
   .animate-twin-backdrop,
   .animate-twin-panel {
     animation: none;

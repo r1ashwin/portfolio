@@ -12,6 +12,11 @@ export default function HubBackdrop() {
       aria-hidden
     >
       <div className="absolute inset-0 bg-linear-to-br from-zinc-900 via-zinc-950 to-[#060608]" />
+      <div className="hub-clouds-wrap" aria-hidden>
+        <div className="hub-cloud hub-cloud--a" />
+        <div className="hub-cloud hub-cloud--b" />
+        <div className="hub-cloud hub-cloud--c" />
+      </div>
       <div
         className="pointer-events-none absolute inset-0 opacity-90"
         style={{

@@ -107,8 +107,8 @@ export default function Projects() {
           aria-labelledby="tab-featured"
         >
           <p className="mb-6 max-w-2xl text-sm leading-relaxed text-zinc-300">
-            Hardware, ML, and systems I talk about most — ships, competitions,
-            and products.
+            Hardware and systems I talk about most: ships, competitions, and
+            products.
           </p>
           <div className="space-y-4">
             {featured.map((project) => (

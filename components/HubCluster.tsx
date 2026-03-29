@@ -15,7 +15,8 @@ const LAYOUT: Record<
   LayoutTier,
   { box: string; radius: number }
 > = {
-  sm: { box: "min(92vw, 500px)", radius: 120 },
+  /* Wider orbit + box on phones so hub icons clear the avatar stack */
+  sm: { box: "min(96vw, 540px)", radius: 138 },
   md: { box: "min(88vw, 620px)", radius: 198 },
   xl: { box: "min(78vw, 760px)", radius: 248 },
   "2xl": { box: "min(70vw, 860px)", radius: 278 },
