@@ -14,11 +14,12 @@ test.describe("Portfolio", () => {
 
   test("intro text is visible", async ({ page }) => {
     await page.goto("/");
-    await expect(page.getByText(/Browse the hub/)).toBeVisible();
+    await expect(page.getByTestId("home-intro")).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Hey, I'm Ashwin/ })).toBeVisible();
   });
 
   const sections = [
-    { name: "About", path: "/about", content: "SDE Intern" },
+    { name: "About", path: "/about", content: "SWE Intern" },
     {
       name: "Projects",
       path: "/projects",
@@ -27,7 +28,7 @@ test.describe("Portfolio", () => {
     {
       name: "Experience",
       path: "/experience",
-      content: "Software Development Engineer",
+      content: "Software Engineering Intern",
     },
     { name: "Research", path: "/research", content: "~93.3%" },
     { name: "Competitions", path: "/competitions", content: "2036" },

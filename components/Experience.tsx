@@ -1,33 +1,53 @@
-const experiences = [
+const experiences: {
+  company: string;
+  role: string;
+  period: string;
+  location?: string;
+  bullets: string[];
+  current?: boolean;
+}[] = [
   {
     company: "Amazon",
-    role: "Software Development Engineer Intern",
-    period: "Jan 2026 - Present",
-    description:
-      "Backend and cloud engineering on the Prime Video (MX Player) team.",
+    role: "Software Engineering Intern",
+    period: "Jan 2026 – Present",
+    location: "Bengaluru",
     current: true,
+    bullets: [
+      "Prime Video (MX Player): independently drove migration of MX Player Catalog Vending Service from DUB to ZAZ AWS regions — completed a 6-month org goal in ~3 months and cut infra cost ~30%.",
+      "Built automation for service and data migration for reliable, repeatable production rollouts.",
+      "Developed and deployed a no-code portal for PCA (Pre-Computed Audience) groups so non-engineers can configure ad targeting.",
+    ],
   },
   {
     company: "IIIT Hyderabad (iHub-Data)",
-    role: "Research Intern (AI/ML)",
-    period: "Jun 2025 - Oct 2025",
-    description:
-      "Multimodal time-series modeling using state-space models, transformers, CNNs, and RNNs. Built cardiac profiling models with ~93.3% accuracy.",
+    role: "Research Intern (Backend & AI/ML)",
+    period: "Jun 2025 – Oct 2025",
+    location: "Hyderabad",
+    bullets: [
+      "Distributed multimodal ML pipelines (CNN, RNN, state-space models) for synchronized ECG–PCG analysis; ~40% inference latency reduction.",
+      "Scalable PyTorch training workflows with optimized data loaders and modular evaluation APIs.",
+      "Cardiac profiling models ~93.3% accuracy; related paper under submission.",
+    ],
   },
   {
-    company: "DynamicAmalgam Technologies",
-    role: "Engineering Intern",
-    period: "Apr 2024 - May 2025",
-    description:
-      "End-to-end systems: embedded firmware, custom PCBs, hardware control, Flutter apps, and web dashboards for consumer electronics.",
+    company: "Dynamic Amalgam Technologies Inc.",
+    role: "Software Engineering Intern",
+    period: "Apr 2024 – Apr 2025",
+    location: "New York City (remote)",
+    bullets: [
+      "C++ firmware for 28-flap electromechanical clock (ESP32/ATmega, custom PCBs, shift registers); interrupt-driven motion control.",
+      "Power-gating logic ~35% lower draw; cloud telemetry via REST/MQTT with real-time device state.",
+    ],
   },
   {
     company: "\u03BCCR Robotics Hub, JIIT",
     role: "Senior Advisor",
-    period: "Sep 2022 - Present",
-    description:
-      "Led robotics, UAV, and AI teams for national competitions. Organized events, closed sponsorships, mentored juniors.",
+    period: "Sep 2022 – Present",
     current: true,
+    bullets: [
+      "Led robotics, UAV, and AI teams for national competitions; mentored juniors.",
+      "Organized pitch events, ideathons, overnight builds; sponsorships — closed four sponsors in a week via in-person outreach.",
+    ],
   },
 ];
 
@@ -36,8 +56,8 @@ export default function Experience() {
     <div className="space-y-6">
       {experiences.map((exp) => (
         <div
-          key={exp.company}
-          className="relative border-l border-zinc-700 pl-6"
+          key={`${exp.company}-${exp.period}`}
+          className="relative border-l border-white/15 pl-6"
         >
           <div
             className="absolute top-1.5 left-0 h-2 w-2 -translate-x-[5px] rounded-full"
@@ -52,8 +72,15 @@ export default function Experience() {
             )}
           </div>
           <p className="text-sm text-zinc-300">{exp.role}</p>
-          <p className="mb-2 text-xs text-zinc-500">{exp.period}</p>
-          <p className="text-sm text-zinc-400">{exp.description}</p>
+          <p className="mb-2 text-xs text-zinc-400">
+            {exp.period}
+            {exp.location ? ` · ${exp.location}` : ""}
+          </p>
+          <ul className="list-disc space-y-1.5 pl-4 text-sm text-zinc-300">
+            {exp.bullets.map((b, i) => (
+              <li key={i}>{b}</li>
+            ))}
+          </ul>
         </div>
       ))}
     </div>

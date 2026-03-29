@@ -27,7 +27,8 @@ describe("Home", () => {
 
   it("renders intro text", () => {
     render(<Home />);
-    expect(screen.getByText(/Browse the hub/)).toBeInTheDocument();
+    expect(screen.getByTestId("home-intro")).toBeInTheDocument();
+    expect(screen.getByText(/Hey, I'm Ashwin/)).toBeInTheDocument();
   });
 
   it("renders all section links", () => {

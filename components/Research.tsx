@@ -1,18 +1,26 @@
-const papers = [
+type Paper = {
+  title: string;
+  subtitle?: string;
+  description: string;
+  accuracy: string;
+  status: string;
+};
+
+const papers: Paper[] = [
   {
-    title: "Multimodal Cardiac Profiling",
-    institution: "IIIT Hyderabad",
+    title: "Machine learning analysis of copper ion concentration in water",
+    subtitle: "MDPI Sensors (published)",
     description:
-      "ECG + PCG models for cardiac profiling using multimodal time-series data.",
-    accuracy: "~93.3%",
-    status: "Under submission",
+      "SVM-based RGB pipeline for colorimetric imaging; scalable ML analysis of copper ions in water.",
+    accuracy: "~96.8%",
+    status: "Published",
   },
   {
-    title: "Copper Ion Detection in Water",
-    institution: "",
+    title: "Multimodal cardiac profiling",
+    subtitle: "IIIT Hyderabad",
     description:
-      "ML pipelines for detecting copper ions in water using colorimetric imaging.",
-    accuracy: "~96.8%",
+      "ECG + PCG models with multimodal time-series pipelines (CNN, RNN, state-space models).",
+    accuracy: "~93.3%",
     status: "Under submission",
   },
 ];
@@ -23,19 +31,19 @@ export default function Research() {
       {papers.map((paper) => (
         <div
           key={paper.title}
-          className="rounded-lg border border-zinc-700/80 bg-zinc-900/40 p-4 shadow-lg shadow-black/20"
+          className="rounded-xl border border-white/12 bg-white/[0.04] p-4 shadow-lg shadow-black/20"
         >
-          <h3 className="mb-1 font-medium text-zinc-100">{paper.title}</h3>
-          {paper.institution && (
-            <p className="mb-2 text-xs text-zinc-500">{paper.institution}</p>
-          )}
-          <p className="mb-3 text-sm text-zinc-400">{paper.description}</p>
+          <h3 className="mb-1 font-medium text-white">{paper.title}</h3>
+          {paper.subtitle ? (
+            <p className="mb-2 text-xs text-zinc-400">{paper.subtitle}</p>
+          ) : null}
+          <p className="mb-3 text-sm text-zinc-300">{paper.description}</p>
           <div className="flex items-center gap-3 text-sm">
-            <span className="font-mono font-medium text-red-400">
+            <span className="font-mono font-medium text-rose-400">
               {paper.accuracy}
             </span>
-            <span className="text-zinc-600">|</span>
-            <span className="text-zinc-400">{paper.status}</span>
+            <span className="text-zinc-500">|</span>
+            <span className="text-zinc-300">{paper.status}</span>
           </div>
         </div>
       ))}

@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import About from "@/components/About";
 import Projects from "@/components/Projects";
@@ -17,9 +17,13 @@ describe("About", () => {
 });
 
 describe("Projects", () => {
-  it("renders all projects", () => {
+  it("defaults to Featured work tab", () => {
     render(<Projects />);
-    expect(screen.getByText("Fluid")).toBeInTheDocument();
+    expect(screen.getByRole("tab", { name: /Featured work/i })).toHaveAttribute(
+      "aria-selected",
+      "true",
+    );
+    expect(screen.getByText(/Local Deterministic AI Runtime/)).toBeInTheDocument();
     expect(
       screen.getByText("Electromechanical Wall Clock"),
     ).toBeInTheDocument();
@@ -27,13 +31,24 @@ describe("Projects", () => {
     expect(screen.getByText("War Robots")).toBeInTheDocument();
     expect(screen.getByText("Leader-Follower Drone")).toBeInTheDocument();
     expect(
-      screen.getByText("Fashion Outfit Recommender"),
+      screen.getByText("Conversational Outfit Recommender"),
     ).toBeInTheDocument();
+    expect(screen.queryByText("portfolio")).not.toBeInTheDocument();
   });
 
-  it("shows active badge on Fluid", () => {
+  it("GitHub tab shows repositories list", () => {
     render(<Projects />);
-    expect(screen.getByText("active")).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("tab", { name: /^GitHub$/ }));
+    expect(screen.getByText("GitHub repositories")).toBeInTheDocument();
+    expect(screen.getByText("portfolio")).toBeInTheDocument();
+    expect(
+      screen.queryByText("Electromechanical Wall Clock"),
+    ).not.toBeInTheDocument();
+  });
+
+  it("shows Active badge on featured lead project", () => {
+    render(<Projects />);
+    expect(screen.getByText("Active")).toBeInTheDocument();
   });
 });
 
@@ -45,7 +60,7 @@ describe("Experience", () => {
       screen.getByText("IIIT Hyderabad (iHub-Data)"),
     ).toBeInTheDocument();
     expect(
-      screen.getByText("DynamicAmalgam Technologies"),
+      screen.getByText("Dynamic Amalgam Technologies Inc."),
     ).toBeInTheDocument();
     expect(
       screen.getByText("\u03BCCR Robotics Hub, JIIT"),
@@ -62,10 +77,10 @@ describe("Research", () => {
   it("renders papers", () => {
     render(<Research />);
     expect(
-      screen.getByText("Multimodal Cardiac Profiling"),
+      screen.getByText(/Multimodal cardiac profiling/i),
     ).toBeInTheDocument();
     expect(
-      screen.getByText("Copper Ion Detection in Water"),
+      screen.getByText(/copper ion concentration/i),
     ).toBeInTheDocument();
   });
 
@@ -80,7 +95,7 @@ describe("Competitions", () => {
   it("renders CP ratings", () => {
     render(<Competitions />);
     expect(screen.getByText("2036")).toBeInTheDocument();
-    expect(screen.getByText("1552")).toBeInTheDocument();
+    expect(screen.getByText("1549")).toBeInTheDocument();
     expect(screen.getByText("Knight")).toBeInTheDocument();
     expect(screen.getByText("Specialist")).toBeInTheDocument();
   });
@@ -90,7 +105,7 @@ describe("Competitions", () => {
     expect(
       screen.getByText("Amazon ML Challenge India"),
     ).toBeInTheDocument();
-    expect(screen.getByText("Flipkart GRID 5.0")).toBeInTheDocument();
+    expect(screen.getByText(/Flipkart GRiD 5\.0/)).toBeInTheDocument();
   });
 });
 
