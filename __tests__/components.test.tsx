@@ -23,12 +23,14 @@ vi.mock("next/link", () => ({
 describe("Avatar", () => {
   it("renders initials", () => {
     render(<Avatar />);
-    expect(screen.getByText("AD")).toBeInTheDocument();
+    expect(
+      screen.getByRole("img", { name: /Ashwin S Deshpande/i }),
+    ).toBeInTheDocument();
   });
 
   it("renders name", () => {
     render(<Avatar />);
-    expect(screen.getByText("Ashwin Deshpande")).toBeInTheDocument();
+    expect(screen.getByText("Ashwin S Deshpande")).toBeInTheDocument();
   });
 
   it("renders speech bubble", () => {
@@ -39,7 +41,7 @@ describe("Avatar", () => {
   it("renders tagline", () => {
     render(<Avatar />);
     expect(
-      screen.getByText("Builder. Engineer. Maker of things."),
+      screen.getByText("Builder. Engineer."),
     ).toBeInTheDocument();
   });
 });

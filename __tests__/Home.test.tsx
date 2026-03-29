@@ -21,14 +21,17 @@ vi.mock("next/link", () => ({
 describe("Home", () => {
   it("renders avatar", () => {
     render(<Home />);
-    expect(screen.getAllByText("Ashwin Deshpande").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("AD").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Ashwin S Deshpande").length).toBeGreaterThan(0);
+    expect(
+      screen.getAllByRole("img", { name: /Ashwin S Deshpande/i }).length,
+    ).toBeGreaterThan(0);
   });
 
   it("renders intro text", () => {
     render(<Home />);
     expect(screen.getByTestId("home-intro")).toBeInTheDocument();
-    expect(screen.getByText(/Hey, I'm Ashwin/)).toBeInTheDocument();
+    expect(screen.getByText(/Well, hi there/)).toBeInTheDocument();
+    expect(screen.getByText(/I'm Ashwin/)).toBeInTheDocument();
   });
 
   it("renders all section links", () => {

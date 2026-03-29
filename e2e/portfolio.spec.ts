@@ -3,8 +3,10 @@ import { test, expect } from "@playwright/test";
 test.describe("Portfolio", () => {
   test("page loads with avatar and name", async ({ page }) => {
     await page.goto("/");
-    await expect(page.getByText("Ashwin Deshpande").last()).toBeVisible();
-    await expect(page.getByText("AD").last()).toBeVisible();
+    await expect(page.getByText("Ashwin S Deshpande").last()).toBeVisible();
+    await expect(
+      page.getByRole("img", { name: /Ashwin S Deshpande/i }).last(),
+    ).toBeVisible();
   });
 
   test("speech bubble shows talk to me", async ({ page }) => {
@@ -15,7 +17,9 @@ test.describe("Portfolio", () => {
   test("intro text is visible", async ({ page }) => {
     await page.goto("/");
     await expect(page.getByTestId("home-intro")).toBeVisible();
-    await expect(page.getByRole("heading", { name: /Hey, I'm Ashwin/ })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: /Well, hi there/ }),
+    ).toBeVisible();
   });
 
   const sections = [
@@ -61,14 +65,14 @@ test.describe("Portfolio", () => {
     ).toBeVisible();
     await page.getByTestId("section-close").click();
     await expect(page).toHaveURL("/");
-    await expect(page.getByText("Ashwin Deshpande").last()).toBeVisible();
+    await expect(page.getByText("Ashwin S Deshpande").last()).toBeVisible();
   });
 
   test("responsive: mobile hub layout works", async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
     await page.goto("/");
     await expect(
-      page.getByText("Ashwin Deshpande").first(),
+      page.getByText("Ashwin S Deshpande").first(),
     ).toBeVisible();
     await page
       .getByRole("link", { name: "About" })

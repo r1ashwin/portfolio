@@ -3,7 +3,7 @@ import SectionLayout from "@/components/SectionLayout";
 import Competitions from "@/components/Competitions";
 
 export const metadata: Metadata = {
-  title: "Competitions - Ashwin Deshpande",
+  title: "Competitions - Ashwin S Deshpande",
 };
 
 export default function CompetitionsPage() {

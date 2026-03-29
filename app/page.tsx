@@ -1,39 +1,6 @@
 import HubBackdrop from "@/components/HubBackdrop";
 import HubCluster from "@/components/HubCluster";
-
-const footerLinks = [
-  { label: "Email", href: "mailto:r1ashwindeshpande@gmail.com" },
-  { label: "GitHub", href: "https://github.com/r1ashwin" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/r1ashwin" },
-] as const;
-
-function QuickLinks({ className }: { className?: string }) {
-  return (
-    <nav
-      className={className}
-      aria-label="Quick links"
-    >
-      <ul className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-zinc-400">
-        {footerLinks.map((item) => (
-          <li key={item.label}>
-            <a
-              href={item.href}
-              target={item.href.startsWith("mailto:") ? undefined : "_blank"}
-              rel={
-                item.href.startsWith("mailto:")
-                  ? undefined
-                  : "noopener noreferrer"
-              }
-              className="transition-colors hover:text-white"
-            >
-              {item.label}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  );
-}
+import SocialLinksRow from "@/components/SocialLinksRow";
 
 export default function Home() {
   return (
@@ -54,29 +21,32 @@ export default function Home() {
           <div>
             <h2
               id="home-intro-heading"
-              className="text-lg font-semibold tracking-tight text-zinc-100 lg:text-2xl xl:text-[1.65rem]"
+              className="space-y-1.5 tracking-tight lg:space-y-2"
             >
-              Hey, I&apos;m Ashwin.
+              <span className="block text-base font-normal text-zinc-400 lg:text-lg">
+                Well, hi there.
+              </span>
+              <span className="block text-xl font-semibold text-zinc-50 lg:text-2xl xl:text-[1.65rem]">
+                I&apos;m Ashwin.
+              </span>
             </h2>
             <p
-              className="mt-2.5 text-sm leading-relaxed text-zinc-300 lg:mt-3 lg:text-base lg:leading-relaxed"
+              className="mt-4 text-sm leading-relaxed text-zinc-300 lg:mt-5 lg:text-base lg:leading-relaxed"
               data-testid="home-intro"
             >
-              Use the hub to learn more about me—projects, experience,
-              research, and the rest.{" "}
-              <span className="font-medium text-zinc-100">
-                Talk to me
-              </span>{" "}
-              opens my digital twin; explore the ring or reach out below.
+              I love{" "}
+              <span className="text-zinc-200">
+                hardware, machine learning, and software that ships
+              </span>
+              , and most of what sits around them too: robots, research
+              problems, competitions, side projects, anything that gets past
+              slides and actually runs. If you like that sort of thing,
+              I&apos;m glad you&apos;re here.
             </p>
           </div>
 
-          <QuickLinks className="hidden border-t border-zinc-800/90 pt-1 lg:block lg:border-0 lg:pt-0" />
+          <SocialLinksRow className="mt-5 border-t border-zinc-800/90 pt-5 lg:mt-6 lg:border-0 lg:pt-0" />
         </section>
-
-        <footer className="order-3 mt-4 w-full border-t border-zinc-800/90 pt-3 lg:hidden">
-          <QuickLinks className="flex justify-center" />
-        </footer>
       </main>
     </div>
   );

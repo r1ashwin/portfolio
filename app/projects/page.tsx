@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import SectionLayout from "@/components/SectionLayout";
 import Projects from "@/components/Projects";
 
-export const metadata: Metadata = { title: "Projects - Ashwin Deshpande" };
+export const metadata: Metadata = { title: "Projects - Ashwin S Deshpande" };
 
 export default function ProjectsPage() {
   return (
