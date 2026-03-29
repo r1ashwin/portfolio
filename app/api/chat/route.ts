@@ -3,6 +3,7 @@ import OpenAI from "openai";
 import { screenUserMessage } from "@/lib/chat-safety";
 import { buildSystemPrompt } from "@/lib/digital-twin-system";
 import { loadKnowledgeForModel } from "@/lib/profile-for-model";
+import { appendGithubTwinLog } from "@/lib/github-log";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -40,6 +41,13 @@ function normalizeMessages(raw: unknown): ClientMessage[] | null {
     return out.slice(-MAX_MESSAGES);
   }
   return out;
+}
+
+function lastUserContent(messages: ClientMessage[]): string | null {
+  for (let i = messages.length - 1; i >= 0; i--) {
+    if (messages[i].role === "user") return messages[i].content;
+  }
+  return null;
 }
 
 export async function POST(req: NextRequest) {
@@ -97,12 +105,16 @@ export async function POST(req: NextRequest) {
     });
 
     const encoder = new TextEncoder();
+    const userLogged = lastUserContent(messages);
+
     const readable = new ReadableStream({
       async start(controller) {
+        let assistantFull = "";
         try {
           for await (const part of stream) {
             const c = part.choices[0]?.delta?.content ?? "";
             if (c) {
+              assistantFull += c;
               controller.enqueue(
                 encoder.encode(`data: ${JSON.stringify({ c })}\n\n`),
               );
@@ -110,6 +122,9 @@ export async function POST(req: NextRequest) {
           }
           controller.enqueue(encoder.encode("data: [DONE]\n\n"));
           controller.close();
+          if (userLogged != null) {
+            void appendGithubTwinLog(userLogged, assistantFull);
+          }
         } catch (err) {
           controller.error(err);
         }

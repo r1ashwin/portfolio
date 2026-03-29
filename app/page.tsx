@@ -23,22 +23,19 @@ export default function Home() {
               id="home-intro-heading"
               className="space-y-1.5 tracking-tight lg:space-y-2"
             >
-              <span className="block text-base font-normal text-zinc-400 lg:text-lg">
+              <span className="block text-base font-normal text-white lg:text-lg">
                 Well, hi there.
               </span>
-              <span className="block text-xl font-semibold text-zinc-50 lg:text-2xl xl:text-[1.65rem]">
+              <span className="block text-xl font-semibold text-white lg:text-2xl xl:text-[1.65rem]">
                 I&apos;m Ashwin.
               </span>
             </h2>
             <p
-              className="mt-4 text-sm leading-relaxed text-zinc-300 lg:mt-5 lg:text-base lg:leading-relaxed"
+              className="mt-4 text-sm leading-relaxed text-white lg:mt-5 lg:text-base lg:leading-relaxed"
               data-testid="home-intro"
             >
-              I love{" "}
-              <span className="text-zinc-200">
-                hardware and software that ships
-              </span>
-              , and most of what sits around them too: robots, research
+              I love hardware and software that ships, and most of what sits
+              around them too: robots, research
               problems, competitions, side projects, anything that gets past
               slides and actually runs. If you like that sort of thing,
               I&apos;m glad you&apos;re here.

@@ -13,6 +13,7 @@
     "test:e2e:photos": "playwright test e2e/home-no-photos.spec.ts"
   },
   "dependencies": {
+    "google-auth-library": "^10.6.2",
     "lucide-react": "^1.7.0",
     "next": "^16.2.1",
     "openai": "^6.33.0",
