@@ -26,7 +26,7 @@ export const PAPER_FULL_TITLE =
 const PROJECT_IMAGE =
   "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=720&h=240&fit=crop&q=85&auto=format";
 
-const INLINE_PROJECT_URL = "";
+const INLINE_PROJECT_URL = "https://journi-planner.vercel.app";
 const FALLBACK_PROJECT_URL = "https://github.com/r1ashwin";
 
 const DEFAULT_PROJECT_NAME = "Journi";
