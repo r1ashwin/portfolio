@@ -45,7 +45,7 @@ export default function Home() {
 
           <LatestProjectBanner />
 
-          <SocialLinksRow className="mt-1 border-t border-zinc-800/90 pt-5 lg:mt-0 lg:w-full lg:border-0 lg:pt-0" />
+          <SocialLinksRow className="mt-1 border-t border-zinc-800/90 pt-5 pl-3 sm:pl-4 lg:mt-0 lg:w-full lg:border-0 lg:pt-0 lg:pl-5" />
         </section>
       </main>
     </div>
