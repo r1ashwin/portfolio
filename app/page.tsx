@@ -1,6 +1,6 @@
 import HubBackdrop from "@/components/HubBackdrop";
 import HubCluster from "@/components/HubCluster";
-import LatestProjectBanner from "@/components/LatestProjectBanner";
+import FeaturedWorkSection from "@/components/FeaturedWorkSection";
 import SocialLinksRow from "@/components/SocialLinksRow";
 
 export default function Home() {
@@ -43,7 +43,7 @@ export default function Home() {
             </p>
           </div>
 
-          <LatestProjectBanner />
+          <FeaturedWorkSection />
 
           <SocialLinksRow className="mt-1 border-t border-zinc-800/90 pt-5 pl-3 sm:pl-4 lg:mt-0 lg:w-full lg:border-0 lg:pt-0 lg:pl-5" />
         </section>
