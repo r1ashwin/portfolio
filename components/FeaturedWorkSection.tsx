@@ -94,7 +94,7 @@ function MlGraphicBanner() {
 function kindStripId(item: FeaturedItem) {
   return item.kind === "Research paper"
     ? "featured-strip-research"
-    : "featured-strip-projects";
+    : "featured-strip-project";
 }
 
 function FeaturedCard({
@@ -114,7 +114,7 @@ function FeaturedCard({
       {/* Outside the <a> so :visited / browser link styles never mute this strip */}
       <div
         id={stripId}
-        className="border-b border-zinc-600/50 bg-zinc-900/50 px-2.5 py-2 text-[10px] font-bold uppercase tracking-[0.14em] text-white antialiased sm:px-3 sm:text-[11px] sm:tracking-[0.16em]"
+        className="border-b border-zinc-600/50 bg-zinc-900/50 px-2.5 py-2 text-[11px] font-bold uppercase tracking-[0.14em] text-white antialiased sm:px-3 sm:text-xs sm:tracking-[0.16em]"
         style={{ color: "#fafafa", fontWeight: 700 }}
       >
         {item.kind}
@@ -186,7 +186,7 @@ export default function FeaturedWorkSection() {
 
   return (
     <div className="mx-auto mb-1 w-full max-w-[min(92vw,22rem)] sm:max-w-md lg:mx-0 lg:mb-0 lg:w-full lg:max-w-xs lg:self-start">
-      <h3 className="mb-3 px-0.5 text-center text-sm font-bold leading-snug tracking-normal text-white antialiased lg:text-left">
+      <h3 className="mb-3.5 px-0.5 text-center text-base font-bold leading-snug tracking-tight text-white antialiased sm:text-lg lg:text-left">
         {FEATURED_SECTION_HEADING}
       </h3>
       <div className="flex flex-col gap-3 sm:gap-3.5">

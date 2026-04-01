@@ -4,7 +4,7 @@
  */
 
 export type FeaturedItem = {
-  kind: "Research paper" | "Projects";
+  kind: "Research paper" | "Project";
   title: string;
   tagline: string;
   href: string;
@@ -41,7 +41,7 @@ function getProjectItem(): FeaturedItem {
   const imageSrc =
     process.env.NEXT_PUBLIC_LATEST_PROJECT_IMAGE?.trim() || PROJECT_IMAGE;
   return {
-    kind: "Projects",
+    kind: "Project",
     title,
     tagline: "",
     href,
