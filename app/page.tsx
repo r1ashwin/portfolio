@@ -1,5 +1,6 @@
 import HubBackdrop from "@/components/HubBackdrop";
 import HubCluster from "@/components/HubCluster";
+import LatestProjectBanner from "@/components/LatestProjectBanner";
 import SocialLinksRow from "@/components/SocialLinksRow";
 
 export default function Home() {
@@ -7,18 +8,18 @@ export default function Home() {
     <div className="relative isolate min-h-screen bg-zinc-950">
       <HubBackdrop />
 
-      <main className="relative z-1 mx-auto flex min-h-screen w-full max-w-[1400px] flex-col px-4 pb-6 pt-6 lg:flex-row lg:items-center lg:justify-between lg:gap-10 lg:px-8 lg:pb-10 lg:pt-8 xl:gap-16 xl:px-12">
-        {/* Hub: first on mobile (above intro), right side on large screens */}
-        <div className="order-1 flex min-h-[min(52vh,500px)] flex-1 items-center justify-center pb-1 pt-2 lg:order-2 lg:min-h-0 lg:flex-[1.15] lg:py-0">
+      <main className="relative z-1 mx-auto flex min-h-screen w-full max-w-[1400px] flex-col px-4 pb-6 pt-6 lg:flex-row lg:items-center lg:justify-center lg:gap-12 lg:px-8 lg:pb-10 lg:pt-8 xl:gap-16 xl:px-12">
+        {/* Mobile: hub first. Desktop: right column, grouped toward centre. */}
+        <div className="order-1 flex min-h-[min(52vh,500px)] w-full flex-1 items-center justify-center pb-2 pt-0 lg:order-2 lg:min-h-0 lg:w-auto lg:flex-none lg:py-0">
           <HubCluster />
         </div>
 
-        {/* Intro + links: below hub on mobile, left column on large screens */}
+        {/* Mobile: intro → latest project → socials. Desktop: centred column. */}
         <section
-          className="order-2 -mt-3 flex max-w-xl flex-col gap-4 lg:order-1 lg:mt-0 lg:max-w-md lg:flex-[0.85] lg:gap-6"
+          className="order-2 flex w-full max-w-xl flex-col gap-5 lg:order-1 lg:w-full lg:max-w-md lg:flex-none lg:items-center lg:gap-6 lg:text-center"
           aria-labelledby="home-intro-heading"
         >
-          <div>
+          <div className="lg:mx-auto lg:w-full lg:max-w-md">
             <h2
               id="home-intro-heading"
               className="space-y-1.5 tracking-tight lg:space-y-2"
@@ -42,7 +43,9 @@ export default function Home() {
             </p>
           </div>
 
-          <SocialLinksRow className="mt-5 border-t border-zinc-800/90 pt-5 lg:mt-6 lg:border-0 lg:pt-0" />
+          <LatestProjectBanner />
+
+          <SocialLinksRow className="mt-1 border-t border-zinc-800/90 pt-5 lg:mt-0 lg:w-full lg:border-0 lg:pt-0 [&_ul]:lg:justify-center" />
         </section>
       </main>
     </div>
