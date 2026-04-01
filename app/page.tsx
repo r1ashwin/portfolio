@@ -14,12 +14,12 @@ export default function Home() {
           <HubCluster />
         </div>
 
-        {/* Mobile: intro → latest project → socials. Desktop: centred column. */}
+        {/* Mobile: intro → latest project → socials. Desktop: left-aligned copy like before. */}
         <section
-          className="order-2 flex w-full max-w-xl flex-col gap-5 lg:order-1 lg:w-full lg:max-w-md lg:flex-none lg:items-center lg:gap-6 lg:text-center"
+          className="order-2 flex w-full max-w-xl flex-col gap-5 lg:order-1 lg:w-full lg:max-w-md lg:flex-none lg:gap-6"
           aria-labelledby="home-intro-heading"
         >
-          <div className="lg:mx-auto lg:w-full lg:max-w-md">
+          <div className="w-full lg:max-w-md">
             <h2
               id="home-intro-heading"
               className="space-y-1.5 tracking-tight lg:space-y-2"
@@ -45,7 +45,7 @@ export default function Home() {
 
           <LatestProjectBanner />
 
-          <SocialLinksRow className="mt-1 border-t border-zinc-800/90 pt-5 lg:mt-0 lg:w-full lg:border-0 lg:pt-0 [&_ul]:lg:justify-center" />
+          <SocialLinksRow className="mt-1 border-t border-zinc-800/90 pt-5 lg:mt-0 lg:w-full lg:border-0 lg:pt-0" />
         </section>
       </main>
     </div>

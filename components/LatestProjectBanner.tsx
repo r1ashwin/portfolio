@@ -11,11 +11,11 @@ export default function LatestProjectBanner() {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="group mb-1 mx-auto block w-full max-w-[min(92vw,22rem)] outline-none sm:max-w-md lg:mb-0 lg:w-full lg:max-w-xs lg:self-center"
+      className="group mb-1 mx-auto block w-full max-w-[min(92vw,22rem)] outline-none sm:max-w-md lg:mx-0 lg:mb-0 lg:w-full lg:max-w-xs lg:self-start"
       aria-label={`${CALLOUT} ${name}: ${tagline} (opens in a new tab)`}
     >
       <article className="overflow-hidden rounded-lg border border-zinc-700/50 bg-zinc-900/35 shadow-[0_8px_28px_rgba(0,0,0,0.28)] backdrop-blur-sm transition-[border-color,box-shadow] duration-300 group-hover:border-zinc-600/70 group-hover:shadow-[0_12px_36px_rgba(0,0,0,0.38)] group-focus-visible:ring-2 group-focus-visible:ring-rose-500/50 group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-zinc-950">
-        <p className="px-3 py-2.5 text-center text-sm font-bold leading-snug tracking-normal text-white antialiased">
+        <p className="px-3 py-2.5 text-center text-sm font-bold leading-snug tracking-normal text-white antialiased lg:text-left">
           {CALLOUT}
         </p>
 
