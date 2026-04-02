@@ -35,11 +35,10 @@ export default function Home() {
               className="mt-4 text-sm leading-relaxed text-white lg:mt-5 lg:text-base lg:leading-relaxed"
               data-testid="home-intro"
             >
-              I love hardware and software that ships, and most of what sits
-              around them too: robots, research
-              problems, competitions, side projects, anything that gets past
-              slides and actually runs. If you like that sort of thing,
-              I&apos;m glad you&apos;re here.
+              I build things that run. Hardware, software, AI; whatever the
+              problem needs. First startup at 21, drones, robots, published
+              research, and a software engineering internship at Amazon. Final
+              semester of B.Tech, already onto the next thing.
             </p>
           </div>
 
