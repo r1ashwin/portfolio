@@ -35,7 +35,7 @@ export default function Home() {
               className="mt-4 text-sm leading-relaxed text-white lg:mt-5 lg:text-base lg:leading-relaxed"
               data-testid="home-intro"
             >
-              I build things that run. Hardware, software, AI; whatever the
+              I build things that run. Hardware, software, AI, whatever the
               problem needs. First startup at 21, drones, robots, published
               research, and a software engineering internship at Amazon. Final
               semester of B.Tech, already onto the next thing.
