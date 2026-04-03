@@ -1,6 +1,7 @@
 import HubBackdrop from "@/components/HubBackdrop";
 import HubCluster from "@/components/HubCluster";
 import FeaturedWorkSection from "@/components/FeaturedWorkSection";
+import HomeVisitLog from "@/components/HomeVisitLog";
 import SocialLinksRow from "@/components/SocialLinksRow";
 
 export default function Home() {
@@ -9,6 +10,7 @@ export default function Home() {
       <HubBackdrop />
 
       <main className="relative z-1 mx-auto flex min-h-screen w-full max-w-[1400px] flex-col px-4 pb-6 pt-6 lg:flex-row lg:items-center lg:justify-center lg:gap-12 lg:px-8 lg:pb-10 lg:pt-8 xl:gap-16 xl:px-12">
+        <HomeVisitLog />
         {/* Mobile: hub first. Desktop: right column, grouped toward centre. */}
         <div className="order-1 flex min-h-[min(52vh,500px)] w-full flex-1 items-center justify-center pb-2 pt-0 lg:order-2 lg:min-h-0 lg:w-auto lg:flex-none lg:py-0">
           <HubCluster />

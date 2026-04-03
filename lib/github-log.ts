@@ -1,4 +1,5 @@
 const MAX_LOG_CHARS = 45000;
+const MAX_ANALYTICS_DETAIL = 2000;
 
 function trimmedEnv(name: string): string | undefined {
   const v = process.env[name];
@@ -7,12 +8,24 @@ function trimmedEnv(name: string): string | undefined {
   return t === "" ? undefined : t;
 }
 
-function githubLoggingConfigured(): boolean {
+function githubRepoCredentialsOk(): boolean {
   return Boolean(
     trimmedEnv("CHAT_LOG_GITHUB_TOKEN") &&
       trimmedEnv("CHAT_LOG_GITHUB_REPO_OWNER") &&
-      trimmedEnv("CHAT_LOG_GITHUB_REPO_NAME") &&
-      trimmedEnv("CHAT_LOG_GITHUB_LOG_PATH"),
+      trimmedEnv("CHAT_LOG_GITHUB_REPO_NAME"),
+  );
+}
+
+function githubLoggingConfigured(): boolean {
+  return (
+    githubRepoCredentialsOk() && Boolean(trimmedEnv("CHAT_LOG_GITHUB_LOG_PATH"))
+  );
+}
+
+export function analyticsLoggingConfigured(): boolean {
+  return (
+    githubRepoCredentialsOk() &&
+    Boolean(trimmedEnv("CHAT_LOG_GITHUB_ANALYTICS_PATH"))
   );
 }
 
@@ -21,16 +34,20 @@ function clipCell(text: string): string {
   return `${text.slice(0, MAX_LOG_CHARS)}…`;
 }
 
+function clipDetail(text: string): string {
+  if (text.length <= MAX_ANALYTICS_DETAIL) return text;
+  return `${text.slice(0, MAX_ANALYTICS_DETAIL)}…`;
+}
+
 function toCsvCell(value: string): string {
   const cleaned = value.replace(/\r?\n/g, " ");
   const escaped = cleaned.replace(/"/g, '""');
   return `"${escaped}"`;
 }
 
-async function getExistingFile() {
+async function getExistingFileAtPath(pathRaw: string) {
   const owner = trimmedEnv("CHAT_LOG_GITHUB_REPO_OWNER")!;
   const repo = trimmedEnv("CHAT_LOG_GITHUB_REPO_NAME")!;
-  const pathRaw = trimmedEnv("CHAT_LOG_GITHUB_LOG_PATH")!;
   const path = pathRaw.replace(/^\/+/, "");
   const token = trimmedEnv("CHAT_LOG_GITHUB_TOKEN")!;
 
@@ -74,10 +91,14 @@ async function getExistingFile() {
   return { sha: json.sha ?? null, content: buff.toString("utf8") };
 }
 
-async function putFile(newContent: string, sha: string | null) {
+async function putFileAtPath(
+  pathRaw: string,
+  newContent: string,
+  sha: string | null,
+  commitMessage: string,
+) {
   const owner = trimmedEnv("CHAT_LOG_GITHUB_REPO_OWNER")!;
   const repo = trimmedEnv("CHAT_LOG_GITHUB_REPO_NAME")!;
-  const pathRaw = trimmedEnv("CHAT_LOG_GITHUB_LOG_PATH")!;
   const path = pathRaw.replace(/^\/+/, "");
   const token = trimmedEnv("CHAT_LOG_GITHUB_TOKEN")!;
 
@@ -90,7 +111,7 @@ async function putFile(newContent: string, sha: string | null) {
     content: string;
     sha?: string;
   } = {
-    message: "Log digital twin chat",
+    message: commitMessage,
     content: Buffer.from(newContent, "utf8").toString("base64"),
   };
 
@@ -130,6 +151,7 @@ export async function appendGithubTwinLog(
   try {
     if (!githubLoggingConfigured()) return;
 
+    const pathRaw = trimmedEnv("CHAT_LOG_GITHUB_LOG_PATH")!;
     const timestamp = new Date().toISOString();
     const row =
       [
@@ -138,15 +160,50 @@ export async function appendGithubTwinLog(
         toCsvCell(clipCell(assistantMessage)),
       ].join(",") + "\n";
 
-    const { sha, content } = await getExistingFile();
+    const { sha, content } = await getExistingFileAtPath(pathRaw);
     const header = "timestamp,user,assistant\n";
     const base = content ? content : header;
     const next = base.endsWith("\n") ? base + row : `${base}\n${row}`;
 
-    await putFile(next, sha);
+    await putFileAtPath(pathRaw, next, sha, "Log digital twin chat");
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error("[github-log] append failed:", err);
   }
 }
 
+/**
+ * Append one session analytics row (same repo as twin logs, different file).
+ * CSV: timestamp,session_id,event,detail — filter by session_id, sort by timestamp
+ * for a chronological tail (home_page → hub clicks → featured → talk_to_me, etc.).
+ * Never throws; stderr on failure.
+ */
+export async function appendGithubAnalyticsEvent(
+  sessionId: string,
+  event: string,
+  detail: string,
+): Promise<void> {
+  try {
+    if (!analyticsLoggingConfigured()) return;
+
+    const pathRaw = trimmedEnv("CHAT_LOG_GITHUB_ANALYTICS_PATH")!;
+    const timestamp = new Date().toISOString();
+    const row =
+      [
+        toCsvCell(timestamp),
+        toCsvCell(sessionId),
+        toCsvCell(event),
+        toCsvCell(clipDetail(detail)),
+      ].join(",") + "\n";
+
+    const { sha, content } = await getExistingFileAtPath(pathRaw);
+    const header = "timestamp,session_id,event,detail\n";
+    const base = content ? content : header;
+    const next = base.endsWith("\n") ? base + row : `${base}\n${row}`;
+
+    await putFileAtPath(pathRaw, next, sha, "Log site session analytics");
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error("[github-log] analytics append failed:", err);
+  }
+}

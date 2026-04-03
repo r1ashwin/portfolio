@@ -1,9 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import {
   FEATURED_SECTION_HEADING,
   getFeaturedItems,
   type FeaturedItem,
 } from "@/lib/featured-work";
+import { logSiteEvent } from "@/lib/site-analytics-client";
 
 function MlGraphicBanner() {
   return (
@@ -126,6 +129,14 @@ function FeaturedCard({
         rel="noopener noreferrer"
         className="group block w-full text-white outline-none visited:text-white"
         aria-label={`${item.kind}: ${item.title}. ${ariaDetail} (opens in a new tab)`}
+        onClick={() => {
+          logSiteEvent(
+            item.kind === "Research paper"
+              ? "latest_research_paper"
+              : "latest_project",
+            item.href,
+          );
+        }}
       >
         <div className="relative aspect-[3.6/1] w-full overflow-hidden bg-zinc-800/50 sm:aspect-[3.9/1] lg:aspect-[2.35/1]">
           {item.visual === "ml-graphic" ? (

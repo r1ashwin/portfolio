@@ -3,6 +3,7 @@ import type { LucideIcon } from "lucide-react";
 
 interface HubIconProps {
   icon: LucideIcon;
+  hubSectionId: string;
   label: string;
   angle: number;
   radius: number;
@@ -10,6 +11,7 @@ interface HubIconProps {
   pulseActive?: boolean;
   onHubPointerEnter?: () => void;
   onHubPointerLeave?: () => void;
+  onHubSectionNavigate?: (hubSectionId: string, label: string, href: string) => void;
 }
 
 const ringIdle =
@@ -19,6 +21,7 @@ const ringGlow =
 
 export default function HubIcon({
   icon: Icon,
+  hubSectionId,
   label,
   angle,
   radius,
@@ -26,6 +29,7 @@ export default function HubIcon({
   pulseActive = false,
   onHubPointerEnter,
   onHubPointerLeave,
+  onHubSectionNavigate,
 }: HubIconProps) {
   const rad = (angle * Math.PI) / 180;
   const x = Math.round(radius * Math.sin(rad));
@@ -37,6 +41,7 @@ export default function HubIcon({
       href={href}
       onPointerEnter={onHubPointerEnter}
       onPointerLeave={onHubPointerLeave}
+      onClick={() => onHubSectionNavigate?.(hubSectionId, label, href)}
       className="group absolute top-1/2 left-1/2 z-10 flex flex-col items-center gap-1 md:gap-2 xl:gap-2.5"
       style={{
         transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`,

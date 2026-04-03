@@ -51,6 +51,7 @@ describe("HubIcon", () => {
     render(
       <HubIcon
         icon={User}
+        hubSectionId="about"
         label="About"
         angle={0}
         radius={180}
@@ -64,6 +65,7 @@ describe("HubIcon", () => {
     render(
       <HubIcon
         icon={User}
+        hubSectionId="about"
         label="About"
         angle={0}
         radius={180}
@@ -78,6 +80,7 @@ describe("HubIcon", () => {
     render(
       <HubIcon
         icon={User}
+        hubSectionId="test"
         label="Test"
         angle={90}
         radius={180}

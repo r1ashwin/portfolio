@@ -4,7 +4,9 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react
 import Avatar from "@/components/Avatar";
 import DigitalTwinChat from "@/components/DigitalTwinChat";
 import HubIcon from "@/components/HubIcon";
+import { hubIdToAnalyticsEvent } from "@/lib/analytics-events";
 import { HUB_SECTIONS } from "@/lib/hub-sections";
+import { logSiteEvent } from "@/lib/site-analytics-client";
 
 const CYCLE_MS = 1500;
 const RESUME_AFTER_LEAVE_MS = 1500;
@@ -96,11 +98,17 @@ export default function HubCluster() {
     >
       <DigitalTwinChat open={twinOpen} onClose={() => setTwinOpen(false)} />
       <div className="absolute top-1/2 left-1/2 z-20 -translate-x-1/2 -translate-y-1/2">
-        <Avatar onTalkClick={() => setTwinOpen(true)} />
+        <Avatar
+          onTalkClick={() => {
+            logSiteEvent("talk_to_me", "digital_twin_open");
+            setTwinOpen(true);
+          }}
+        />
       </div>
       {HUB_SECTIONS.map((s, i) => (
         <HubIcon
           key={s.id}
+          hubSectionId={s.id}
           icon={s.icon}
           label={s.label}
           angle={s.angle}
@@ -109,6 +117,10 @@ export default function HubCluster() {
           pulseActive={!cyclePaused && cycleIndex === i}
           onHubPointerEnter={onHubPointerEnter}
           onHubPointerLeave={onHubPointerLeave}
+          onHubSectionNavigate={(hubId, _label, href) => {
+            const ev = hubIdToAnalyticsEvent(hubId);
+            if (ev) logSiteEvent(ev, href);
+          }}
         />
       ))}
     </div>
