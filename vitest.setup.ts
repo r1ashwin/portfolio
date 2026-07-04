@@ -34,4 +34,9 @@ Object.defineProperty(window, "matchMedia", {
   })),
 });
 
+Object.defineProperty(window.navigator, "sendBeacon", {
+  writable: true,
+  value: vi.fn(() => true),
+});
+
 afterEach(cleanup);
