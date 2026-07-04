@@ -27,7 +27,7 @@ type LabTrailPageConfig = {
 const PUBLISHED_DATE = "2026-07-04";
 const PAGE_TITLE = "Best Trail Running Shoes for Flat Feet Under $120 (2026)";
 const PAGE_DESCRIPTION =
-  "Unlisted lab page for AI agent reading tests on trail running shoes for flat feet.";
+  "A 2026 guide to the best trail running shoes for flat feet under $120.";
 
 const sharedCompetitors: ShoeRow[] = [
   {
