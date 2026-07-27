@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { ExternalLink, FolderGit2, Sparkles } from "lucide-react";
 import { GITHUB_REPOS, githubRepoUrl } from "@/lib/github-repos";
+import WallClockGallery from "@/components/WallClockGallery";
+
+const WALL_CLOCK_TITLE = "Electromechanical Wall Clock";
 
 const featured = [
   {
@@ -13,7 +16,7 @@ const featured = [
     current: true,
   },
   {
-    title: "Electromechanical Wall Clock",
+    title: WALL_CLOCK_TITLE,
     description:
       "28-flap electromechanical clock: ESP32/ATmega, custom PCBs, shift registers, interrupt-driven control. Built for INR 28k, sold for INR 40k; 11+ months continuous run.",
     tags: ["Firmware", "PCB", "C++"],
@@ -47,6 +50,18 @@ type TabId = "featured" | "github";
 
 export default function Projects() {
   const [tab, setTab] = useState<TabId>("featured");
+  const [showWallClock, setShowWallClock] = useState(false);
+
+  if (showWallClock) {
+    return (
+      <WallClockGallery
+        onBack={() => {
+          setShowWallClock(false);
+          setTab("featured");
+        }}
+      />
+    );
+  }
 
   return (
     <div className="space-y-8">
@@ -111,39 +126,67 @@ export default function Projects() {
             products.
           </p>
           <div className="space-y-4">
-            {featured.map((project) => (
-              <article
-                key={project.title}
-                className="group relative overflow-hidden rounded-2xl border border-white/12 bg-gradient-to-br from-white/[0.07] to-white/[0.02] p-5 shadow-xl shadow-black/25 transition-all duration-200 hover:border-rose-400/30 hover:from-white/[0.09] hover:shadow-rose-950/20"
-              >
-                <div className="pointer-events-none absolute -right-20 -top-20 h-40 w-40 rounded-full bg-rose-500/10 blur-3xl transition-opacity group-hover:opacity-100" />
-                <div className="relative">
-                  <div className="mb-2 flex flex-wrap items-center gap-2">
-                    <h2 className="text-base font-semibold text-white">
-                      {project.title}
-                    </h2>
-                    {project.current ? (
-                      <span className="rounded-full border border-rose-400/35 bg-rose-500/15 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-rose-200">
-                        Active
-                      </span>
-                    ) : null}
+            {featured.map((project) => {
+              const isWallClock = project.title === WALL_CLOCK_TITLE;
+              const cardClassName =
+                "group relative overflow-hidden rounded-2xl border border-white/12 bg-gradient-to-br from-white/[0.07] to-white/[0.02] p-5 text-left shadow-xl shadow-black/25 transition-all duration-200 hover:border-rose-400/30 hover:from-white/[0.09] hover:shadow-rose-950/20";
+
+              const body = (
+                <>
+                  <div className="pointer-events-none absolute -right-20 -top-20 h-40 w-40 rounded-full bg-rose-500/10 blur-3xl transition-opacity group-hover:opacity-100" />
+                  <div className="relative">
+                    <div className="mb-2 flex flex-wrap items-center gap-2">
+                      <h2 className="text-base font-semibold text-white">
+                        {project.title}
+                      </h2>
+                      {project.current ? (
+                        <span className="rounded-full border border-rose-400/35 bg-rose-500/15 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-rose-200">
+                          Active
+                        </span>
+                      ) : null}
+                      {isWallClock ? (
+                        <span className="rounded-full border border-white/15 bg-white/5 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-zinc-300">
+                          Photos &amp; video
+                        </span>
+                      ) : null}
+                    </div>
+                    <p className="mb-4 text-sm leading-relaxed text-zinc-200">
+                      {project.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {project.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded-lg border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-medium text-zinc-200"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                  <p className="mb-4 text-sm leading-relaxed text-zinc-200">
-                    {project.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-lg border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-medium text-zinc-200"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </article>
-            ))}
+                </>
+              );
+
+              if (isWallClock) {
+                return (
+                  <button
+                    key={project.title}
+                    type="button"
+                    onClick={() => setShowWallClock(true)}
+                    className={`${cardClassName} w-full cursor-pointer`}
+                    data-testid="wall-clock-project"
+                  >
+                    {body}
+                  </button>
+                );
+              }
+
+              return (
+                <article key={project.title} className={cardClassName}>
+                  {body}
+                </article>
+              );
+            })}
           </div>
         </section>
       ) : null}

@@ -50,6 +50,18 @@ describe("Projects", () => {
     render(<Projects />);
     expect(screen.getByText("Active")).toBeInTheDocument();
   });
+
+  it("opens wall clock gallery with photos and videos", () => {
+    render(<Projects />);
+    fireEvent.click(screen.getByTestId("wall-clock-project"));
+    expect(screen.getByTestId("wall-clock-gallery")).toBeInTheDocument();
+    expect(screen.getByAltText(/frame 0/i)).toBeInTheDocument();
+    expect(
+      screen.getByLabelText(/clip 7/i).tagName.toLowerCase(),
+    ).toBe("video");
+    fireEvent.click(screen.getByRole("button", { name: /All projects/i }));
+    expect(screen.getByTestId("wall-clock-project")).toBeInTheDocument();
+  });
 });
 
 describe("Experience", () => {
