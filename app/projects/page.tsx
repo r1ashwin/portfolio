@@ -1,13 +1,6 @@
-import type { Metadata } from "next";
-import SectionLayout from "@/components/SectionLayout";
-import Projects from "@/components/Projects";
+import { redirect } from "next/navigation";
+import { PROJECTS_FEATURED_PATH } from "@/lib/project-routes";
 
-export const metadata: Metadata = { title: "Projects - Ashwin S Deshpande" };
-
-export default function ProjectsPage() {
-  return (
-    <SectionLayout title="Projects" maxWidth="wide">
-      <Projects />
-    </SectionLayout>
-  );
+export default function ProjectsIndexPage() {
+  redirect(PROJECTS_FEATURED_PATH);
 }

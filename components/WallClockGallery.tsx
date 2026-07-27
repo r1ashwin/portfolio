@@ -1,20 +1,19 @@
-"use client";
-
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { WALL_CLOCK_MEDIA } from "@/lib/wall-clock-media";
+import {
+  PROJECTS_FEATURED_PATH,
+  WALL_CLOCK_TITLE,
+} from "@/lib/project-routes";
 
-type WallClockGalleryProps = {
-  onBack: () => void;
-};
-
-export default function WallClockGallery({ onBack }: WallClockGalleryProps) {
+export default function WallClockGallery() {
   return (
     <div className="space-y-6" data-testid="wall-clock-gallery">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h2 className="text-xl font-semibold tracking-tight text-white">
-            Electromechanical Wall Clock
+            {WALL_CLOCK_TITLE}
           </h2>
           <p className="mt-1 max-w-2xl text-sm leading-relaxed text-zinc-300">
             28-flap electromechanical clock: ESP32/ATmega, custom PCBs, shift
@@ -22,14 +21,13 @@ export default function WallClockGallery({ onBack }: WallClockGalleryProps) {
             40k; 11+ months continuous run.
           </p>
         </div>
-        <button
-          type="button"
-          onClick={onBack}
+        <Link
+          href={PROJECTS_FEATURED_PATH}
           className="inline-flex shrink-0 items-center gap-1.5 rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-sm font-medium text-zinc-100 transition-colors hover:border-rose-400/35 hover:bg-rose-500/10 hover:text-white"
         >
           <ArrowLeft className="h-4 w-4" aria-hidden strokeWidth={2} />
-          All projects
-        </button>
+          Featured work
+        </Link>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">

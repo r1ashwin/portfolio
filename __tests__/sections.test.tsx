@@ -1,11 +1,41 @@
-import { render, screen, fireEvent } from "@testing-library/react";
-import { describe, it, expect } from "vitest";
+import { render, screen } from "@testing-library/react";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 import About from "@/components/About";
-import Projects from "@/components/Projects";
+import FeaturedProjects from "@/components/FeaturedProjects";
+import GitHubProjects from "@/components/GitHubProjects";
+import ProjectsTabs from "@/components/ProjectsTabs";
+import WallClockGallery from "@/components/WallClockGallery";
 import Experience from "@/components/Experience";
 import Research from "@/components/Research";
 import Competitions from "@/components/Competitions";
 import Contact from "@/components/Contact";
+import {
+  PROJECTS_FEATURED_PATH,
+  PROJECTS_GITHUB_PATH,
+  WALL_CLOCK_PATH,
+} from "@/lib/project-routes";
+
+const mockPathname = vi.fn(() => PROJECTS_FEATURED_PATH);
+
+vi.mock("next/navigation", () => ({
+  usePathname: () => mockPathname(),
+}));
+
+vi.mock("next/link", () => ({
+  default: ({
+    children,
+    href,
+    ...props
+  }: {
+    children: React.ReactNode;
+    href: string;
+    [key: string]: unknown;
+  }) => (
+    <a href={href} {...props}>
+      {children}
+    </a>
+  ),
+}));
 
 describe("About", () => {
   it("renders key information", () => {
@@ -17,11 +47,28 @@ describe("About", () => {
 });
 
 describe("Projects", () => {
+  beforeEach(() => {
+    mockPathname.mockReturnValue(PROJECTS_FEATURED_PATH);
+  });
+
   it("defaults to Featured work tab", () => {
-    render(<Projects />);
+    render(
+      <>
+        <ProjectsTabs />
+        <FeaturedProjects />
+      </>,
+    );
     expect(screen.getByRole("tab", { name: /Featured work/i })).toHaveAttribute(
       "aria-selected",
       "true",
+    );
+    expect(screen.getByRole("tab", { name: /Featured work/i })).toHaveAttribute(
+      "href",
+      PROJECTS_FEATURED_PATH,
+    );
+    expect(screen.getByRole("tab", { name: /^GitHub$/ })).toHaveAttribute(
+      "href",
+      PROJECTS_GITHUB_PATH,
     );
     expect(screen.getByText(/Local Deterministic AI Runtime/)).toBeInTheDocument();
     expect(
@@ -36,9 +83,18 @@ describe("Projects", () => {
     expect(screen.queryByText("portfolio")).not.toBeInTheDocument();
   });
 
-  it("GitHub tab shows repositories list", () => {
-    render(<Projects />);
-    fireEvent.click(screen.getByRole("tab", { name: /^GitHub$/ }));
+  it("GitHub tab links to the github route", () => {
+    mockPathname.mockReturnValue(PROJECTS_GITHUB_PATH);
+    render(
+      <>
+        <ProjectsTabs />
+        <GitHubProjects />
+      </>,
+    );
+    expect(screen.getByRole("tab", { name: /^GitHub$/ })).toHaveAttribute(
+      "aria-selected",
+      "true",
+    );
     expect(screen.getByText("GitHub repositories")).toBeInTheDocument();
     expect(screen.getByText("portfolio")).toBeInTheDocument();
     expect(
@@ -47,20 +103,28 @@ describe("Projects", () => {
   });
 
   it("shows Active badge on featured lead project", () => {
-    render(<Projects />);
+    render(<FeaturedProjects />);
     expect(screen.getByText("Active")).toBeInTheDocument();
   });
 
-  it("opens wall clock gallery with photos and videos", () => {
-    render(<Projects />);
-    fireEvent.click(screen.getByTestId("wall-clock-project"));
+  it("links wall clock project to a shareable detail URL", () => {
+    render(<FeaturedProjects />);
+    expect(screen.getByTestId("wall-clock-project")).toHaveAttribute(
+      "href",
+      WALL_CLOCK_PATH,
+    );
+  });
+
+  it("renders wall clock gallery with photos and videos", () => {
+    render(<WallClockGallery />);
     expect(screen.getByTestId("wall-clock-gallery")).toBeInTheDocument();
     expect(screen.getByAltText(/frame 0/i)).toBeInTheDocument();
     expect(
       screen.getByLabelText(/clip 7/i).tagName.toLowerCase(),
     ).toBe("video");
-    fireEvent.click(screen.getByRole("button", { name: /All projects/i }));
-    expect(screen.getByTestId("wall-clock-project")).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /Featured work/i }),
+    ).toHaveAttribute("href", PROJECTS_FEATURED_PATH);
   });
 });
 

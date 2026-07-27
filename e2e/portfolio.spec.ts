@@ -26,7 +26,7 @@ test.describe("Portfolio", () => {
     { name: "About", path: "/about", content: "SWE Intern" },
     {
       name: "Projects",
-      path: "/projects",
+      path: "/projects/featured",
       content: "Electromechanical Wall Clock",
     },
     {
