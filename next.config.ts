@@ -11,6 +11,10 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // Standalone countdown board (static HTML in /public). Isolated from the site chrome.
+  async rewrites() {
+    return [{ source: "/board", destination: "/board.html" }];
+  },
 };
 
 export default nextConfig;
