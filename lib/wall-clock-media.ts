@@ -4,6 +4,7 @@ export type WallClockMedia =
 
 /** Build photos/videos in `public/images` (excludes website_photo). */
 export const WALL_CLOCK_MEDIA: WallClockMedia[] = [
+  { type: "video", src: "/images/Final.mp4", alt: "Electromechanical wall clock — final demo" },
   { type: "image", src: "/images/0.jpg", alt: "Electromechanical wall clock — frame 0" },
   { type: "image", src: "/images/1.jpg", alt: "Electromechanical wall clock — frame 1" },
   { type: "image", src: "/images/2.jpg", alt: "Electromechanical wall clock — frame 2" },
@@ -17,5 +18,4 @@ export const WALL_CLOCK_MEDIA: WallClockMedia[] = [
   { type: "image", src: "/images/10.jpg", alt: "Electromechanical wall clock — frame 10" },
   { type: "image", src: "/images/11.jpg", alt: "Electromechanical wall clock — frame 11" },
   { type: "image", src: "/images/12.jpg", alt: "Electromechanical wall clock — frame 12" },
-  { type: "video", src: "/images/Final.mp4", alt: "Electromechanical wall clock — final demo" },
 ];
