@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Qekto — pitch</title>
+    <meta name="description" content="Ashwin Deshpande — Qekto founder pitch (TV screen)." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0e1116;
+        --ink: #f4f6f8;
+        --mute: #9aa3ad;
+        --accent: #e8ff47;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "IBM Plex Sans", Helvetica, Arial, sans-serif;
+        overflow: hidden;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .screen {
+        height: 100vh;
+        width: 100vw;
+        padding: 3.2vh 4.2vw 3vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 1.6vh;
+      }
+
+      .eyebrow {
+        flex: 0 0 auto;
+        font-size: 1.35vh;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--mute);
+      }
+
+      .script {
+        flex: 1 1 auto;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 1.35vh;
+      }
+
+      .script p {
+        margin: 0;
+        font-size: 2.55vh;
+        line-height: 1.38;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        max-width: 92vw;
+      }
+
+      .script p strong {
+        font-weight: 700;
+        color: #fff;
+      }
+
+      .script p.lead {
+        font-size: 2.85vh;
+        font-weight: 600;
+        line-height: 1.32;
+      }
+
+      .script p.close {
+        font-size: 2.7vh;
+        font-weight: 600;
+        color: var(--accent);
+      }
+
+      .foot {
+        flex: 0 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        font-size: 1.3vh;
+        color: var(--mute);
+        letter-spacing: 0.04em;
+        padding-top: 0.6vh;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      @media (min-aspect-ratio: 16/10) {
+        .script p {
+          font-size: 2.7vh;
+        }
+        .script p.lead {
+          font-size: 3vh;
+        }
+      }
+
+      @media (max-aspect-ratio: 4/3) {
+        .script p {
+          font-size: 2.2vh;
+        }
+        .script p.lead,
+        .script p.close {
+          font-size: 2.4vh;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="screen">
+      <div class="eyebrow">Ashwin Deshpande · Qekto</div>
+
+      <div class="script">
+        <p class="lead">
+          Hey, I’m Ashwin. I’m 23 and I’m building <strong>Qekto</strong>.
+        </p>
+
+        <p>
+          I’m a software engineer at Amazon. Right after my internship, they
+          picked me as one of two founding engineers for a new Prime Video Ads
+          team, which handles ads data worldwide. Back in college, I published
+          an ML research paper and ran a small hardware startup where I sold
+          electromechanical clocks, drones, custom PCBs and other small
+          electronics people asked me to build. I also headed my university’s
+          robotics hub for three years, and raised over three lakh rupees by
+          running workshops to keep it going.
+        </p>
+
+        <p>
+          Lately my workload on the new team has been really crazy, so I built
+          a few AI agents, and just out of curiosity, one day I ran them on
+          local models instead of frontier APIs. They were really good, even on
+          big multimodal workflows. That’s when I realized companies can use
+          open models for a lot of their work, stop depending on frontier labs,
+          and own their models and tools entirely.
+        </p>
+
+        <p>
+          But what’s hard is everything around the model: understanding the
+          workflow, collecting the right data, training with distillation,
+          fine-tuning or reinforcement learning, trusting the model enough to
+          ship it, and keeping it running as models, products and situations
+          change. Today that takes a whole ML team.
+        </p>
+
+        <p>
+          Qekto does all of that for them, without one. Companies own their
+          models, run them on their own servers, and Qekto keeps improving them
+          so they always meet production needs.
+        </p>
+
+        <p class="close">
+          I built a working version in two days. This is Qekto v1. Let me show
+          you.
+        </p>
+      </div>
+
+      <div class="foot">
+        <span>ashwindeshpande.com/application</span>
+        <span>Fit to TV · no scroll</span>
+      </div>
+    </main>
+  </body>
+</html>
