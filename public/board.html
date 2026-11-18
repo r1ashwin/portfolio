@@ -7,7 +7,7 @@
     <title>Hear-back board</title>
     <meta
       name="description"
-      content="Private board: YC hear-back and a16z holding date, Dec 11 San Francisco time, with India week timers."
+      content="One countdown to Dec 11 San Francisco time, with India week timers."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -21,18 +21,14 @@
         --panel: #23282f;
         --ink: #ffffff;
         --mute: #a7b0bb;
-        --mute-soft: #7a8491;
         --yc: #f26522;
         --hair: rgba(255, 255, 255, 0.1);
         --now: #e8ff47;
       }
 
-      * {
-        box-sizing: border-box;
-      }
+      * { box-sizing: border-box; }
 
-      html,
-      body {
+      html, body {
         margin: 0;
         height: 100%;
         background: var(--bg);
@@ -42,45 +38,40 @@
       }
 
       .board {
-        height: 100vh;
-        width: 100%;
-        padding: 1.2vh 1.4vw 1.3vh;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        padding: 1.4vh 1.6vw 1.6vh;
         display: grid;
-        grid-template-rows: 15.5vh 1fr 23vh;
-        gap: 1.15vh;
+        grid-template-rows: 13vh 22vh minmax(0, 1fr);
+        gap: 1.2vh;
       }
 
-      .now-clocks,
-      .tracks,
-      .weeks {
+      .clocks {
         display: grid;
-        gap: 1.1vw;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.2vw;
         min-height: 0;
       }
 
-      .now-clocks,
-      .tracks {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .clock-card,
-      .track,
-      .week {
+      .clock, .hero, .week {
         background: var(--panel);
         border: 1px solid var(--hair);
         min-height: 0;
       }
 
-      .clock-card {
-        border-radius: 1.1vw;
-        padding: 1.1vh 1.3vw;
-        display: grid;
-        grid-template-columns: 1fr auto;
+      .clock {
+        border-radius: 1vw;
+        padding: 1vh 1.3vw;
+        display: flex;
         align-items: center;
+        justify-content: space-between;
         gap: 1vw;
       }
 
-      .clock-meta .label {
+      .clock .label {
         font-size: 1.15vw;
         letter-spacing: 0.14em;
         text-transform: uppercase;
@@ -88,242 +79,178 @@
         font-weight: 700;
       }
 
-      .clock-meta .place {
+      .clock .place {
         margin-top: 0.2vh;
-        font-size: 1.85vw;
+        font-size: 1.7vw;
         font-weight: 800;
         letter-spacing: -0.03em;
       }
 
-      .clock-meta .date {
-        margin-top: 0.2vh;
+      .clock .date {
+        margin-top: 0.15vh;
         color: var(--mute);
-        font-size: 1.2vw;
+        font-size: 1.15vw;
         font-weight: 600;
       }
 
-      .clock-card .time {
-        font-size: 3.6vw;
+      .clock .time {
+        font-size: 3.2vw;
         font-weight: 800;
         font-variant-numeric: tabular-nums;
         letter-spacing: -0.04em;
         line-height: 1;
       }
 
-      .track {
-        border-radius: 1.25vw;
-        padding: 1.4vh 1.3vw 1.5vh;
+      .hero {
+        border-radius: 1.1vw;
+        padding: 1vh 1.4vw;
         display: grid;
-        grid-template-columns: auto 1fr;
-        grid-template-rows: auto 1fr auto;
-        column-gap: 1.1vw;
+        grid-template-columns: 1.15fr 1.4fr 1.15fr;
         align-items: center;
+        gap: 1vw;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.8vw;
+        min-width: 0;
+      }
+
+      .brand.right {
+        justify-content: flex-end;
+        text-align: right;
       }
 
       .logo {
-        width: 4.6vw;
-        height: 4.6vw;
-        border-radius: 0.7vw;
+        width: 3.6vw;
+        height: 3.6vw;
+        border-radius: 0.55vw;
         display: grid;
         place-items: center;
-        grid-row: 1 / span 2;
-        align-self: center;
+        flex-shrink: 0;
       }
 
-      .logo.yc {
-        background: var(--yc);
-      }
-
-      .logo.yc svg {
-        width: 62%;
-        height: 62%;
-      }
+      .logo.yc { background: var(--yc); }
+      .logo.yc svg { width: 62%; height: 62%; display: block; }
 
       .logo.a16z {
         background: #f4f1ea;
         color: #111;
-        font-size: 1.35vw;
+        font-size: 1.05vw;
         font-weight: 800;
         letter-spacing: -0.06em;
-        line-height: 0.9;
       }
 
-      .program {
-        font-size: 1.55vw;
+      .brand .name {
+        font-size: 1.35vw;
         font-weight: 800;
         letter-spacing: -0.03em;
       }
 
-      .role {
+      .brand .role {
         margin-top: 0.15vh;
         font-size: 0.95vw;
         font-weight: 600;
         color: var(--mute);
       }
 
-      .decimal-timer {
-        grid-column: 2;
-        display: flex;
-        align-items: flex-start;
-        line-height: 0.84;
+      .count {
+        text-align: center;
         font-variant-numeric: tabular-nums;
+        line-height: 0.85;
       }
 
-      .days-int {
-        font-size: 7.4vw;
+      .count .int {
+        font-size: 6.2vw;
         font-weight: 800;
         letter-spacing: -0.06em;
       }
 
-      .days-frac-wrap {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        margin-top: 0.18em;
-      }
-
-      .days-frac {
-        font-size: 3.3vw;
+      .count .frac {
+        font-size: 2.6vw;
         font-weight: 700;
         letter-spacing: -0.04em;
       }
 
-      .days-label {
-        margin-top: 0.12em;
-        font-size: 1.15vw;
+      .count .sub {
+        margin-top: 0.6vh;
+        font-size: 1.05vw;
         font-weight: 600;
         color: var(--mute);
-      }
-
-      .deadline-box {
-        grid-column: 1 / -1;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 0.7vw;
-      }
-
-      .deadline-row {
-        background: rgba(0, 0, 0, 0.28);
-        border: 1px solid var(--hair);
-        border-radius: 0.7vw;
-        padding: 0.7vh 0.8vw;
-      }
-
-      .deadline-row .where {
-        font-size: 0.85vw;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: var(--mute);
-        font-weight: 700;
-      }
-
-      .deadline-row .when {
-        margin-top: 0.2vh;
-        font-size: 1.15vw;
-        font-weight: 700;
-        letter-spacing: -0.02em;
+        line-height: 1.35;
       }
 
       .weeks {
-        grid-template-columns: repeat(4, 1fr);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 1.2vh 1.2vw;
+        min-height: 0;
       }
 
       .week {
-        border-radius: 1vw;
-        padding: 1.15vh 1vw 1.25vh;
+        border-radius: 1.1vw;
+        padding: 1.5vh 1.4vw;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
       }
 
       .week.current {
-        border-color: rgba(232, 255, 71, 0.55);
-        box-shadow: inset 0 0 0 1px rgba(232, 255, 71, 0.25);
+        border-color: rgba(232, 255, 71, 0.7);
+        box-shadow: inset 0 0 0 2px rgba(232, 255, 71, 0.28);
       }
 
-      .week.past {
-        opacity: 0.45;
-      }
+      .week.past { opacity: 0.4; }
 
       .week .kicker {
-        font-size: 0.85vw;
+        font-size: 1.05vw;
         letter-spacing: 0.14em;
         text-transform: uppercase;
         color: var(--mute);
         font-weight: 700;
       }
 
-      .week.current .kicker {
-        color: var(--now);
-      }
+      .week.current .kicker { color: var(--now); }
 
       .week .range {
-        margin-top: 0.35vh;
-        font-size: 1.25vw;
+        margin-top: 0.5vh;
+        font-size: 2.3vw;
         font-weight: 800;
-        letter-spacing: -0.03em;
+        letter-spacing: -0.035em;
+        line-height: 1.05;
       }
 
       .week .left {
-        font-size: 2.15vw;
+        font-size: 3.6vw;
         font-weight: 800;
         font-variant-numeric: tabular-nums;
-        letter-spacing: -0.04em;
+        letter-spacing: -0.045em;
         line-height: 1;
       }
 
       .week .unit {
-        margin-top: 0.35vh;
-        font-size: 0.9vw;
+        margin-top: 0.5vh;
+        font-size: 1.15vw;
         color: var(--mute);
         font-weight: 600;
-      }
-
-      @media (max-width: 980px) {
-        body {
-          overflow: auto;
-        }
-
-        .board {
-          height: auto;
-          min-height: 100vh;
-          grid-template-rows: auto auto auto;
-        }
-
-        .now-clocks,
-        .tracks,
-        .weeks {
-          grid-template-columns: 1fr;
-        }
-
-        .clock-card .time,
-        .days-int,
-        .days-frac,
-        .program,
-        .week .left,
-        .week .range {
-          font-size: 28px;
-        }
-
-        .days-int {
-          font-size: 64px;
-        }
       }
     </style>
   </head>
   <body>
     <main class="board">
-      <section class="now-clocks" aria-live="polite" aria-label="Live clocks">
-        <div class="clock-card">
-          <div class="clock-meta">
+      <section class="clocks" aria-label="Live clocks">
+        <div class="clock">
+          <div>
             <div class="label">India time · IST</div>
             <div class="place">India</div>
             <div class="date" id="ist-date">—</div>
           </div>
           <div class="time" id="ist-time">--:--:--</div>
         </div>
-        <div class="clock-card">
-          <div class="clock-meta">
+        <div class="clock">
+          <div>
             <div class="label">San Francisco time · PT</div>
             <div class="place">San Francisco</div>
             <div class="date" id="sf-date">—</div>
@@ -332,78 +259,48 @@
         </div>
       </section>
 
-      <section class="tracks" aria-label="Hear-back countdowns">
-        <article class="track" data-track="yc">
+      <section class="hero" aria-label="Days until December 11">
+        <div class="brand">
           <div class="logo yc" aria-label="Y Combinator">
             <svg viewBox="0 0 48 48" aria-hidden="true">
-              <path
-                fill="#fff"
-                d="M13.2 8h6.3l4.5 9.2L28.5 8H34.8L25.7 23.4V40h-5.4V23.4L13.2 8z"
-              />
+              <path fill="#fff" d="M13.2 8h6.3l4.5 9.2L28.5 8H34.8L25.7 23.4V40h-5.4V23.4L13.2 8z"></path>
             </svg>
           </div>
           <div>
-            <div class="program">YC Winter 2027</div>
+            <div class="name">YC Winter 2027</div>
             <div class="role">Hear back by this date</div>
           </div>
-          <div class="decimal-timer" aria-label="Days until YC hear-back">
-            <span class="days-int" data-int>0</span>
-            <span class="days-frac-wrap">
-              <span class="days-frac" data-frac>.0000000</span>
-              <span class="days-label">days left</span>
-            </span>
-          </div>
-          <div class="deadline-box">
-            <div class="deadline-row">
-              <div class="where">San Francisco</div>
-              <div class="when" data-sf>—</div>
-            </div>
-            <div class="deadline-row">
-              <div class="where">India</div>
-              <div class="when" data-ist>—</div>
-            </div>
-          </div>
-        </article>
+        </div>
 
-        <article class="track" data-track="sr">
-          <div class="logo a16z" aria-label="Andreessen Horowitz">a16z</div>
+        <div class="count">
           <div>
-            <div class="program">a16z speedrun</div>
-            <div class="role">Not rejected · no date from them</div>
+            <span class="int" id="days-int">0</span><span class="frac" id="days-frac">.0000000</span>
           </div>
-          <div class="decimal-timer" aria-label="Days until the holding date">
-            <span class="days-int" data-int>0</span>
-            <span class="days-frac-wrap">
-              <span class="days-frac" data-frac>.0000000</span>
-              <span class="days-label">days left</span>
-            </span>
+          <div class="sub" id="deadline-line">days left</div>
+        </div>
+
+        <div class="brand right">
+          <div>
+            <div class="name">a16z speedrun</div>
+            <div class="role">Not rejected · same date for now</div>
           </div>
-          <div class="deadline-box">
-            <div class="deadline-row">
-              <div class="where">Same SF date, for now</div>
-              <div class="when" data-sf>—</div>
-            </div>
-            <div class="deadline-row">
-              <div class="where">India</div>
-              <div class="when" data-ist>—</div>
-            </div>
-          </div>
-        </article>
+          <div class="logo a16z" aria-label="Andreessen Horowitz">a16z</div>
+        </div>
       </section>
 
       <section class="weeks" id="weeks" aria-label="India weeks until the deadline"></section>
     </main>
 
     <script>
-      // End of Fri Dec 11, 2026 in San Francisco (PST, UTC−8).
-      const DEADLINE = Date.parse("2026-12-12T07:59:59.000Z");
-      const MS_DAY = 86400000;
-      const IST = "Asia/Kolkata";
-      const SF = "America/Los_Angeles";
+      var DEADLINE = Date.parse("2026-12-12T07:59:59.000Z");
+      var MS_DAY = 86400000;
+      var IST = "Asia/Kolkata";
+      var SF = "America/Los_Angeles";
+      var weekKey = "";
 
-      function parts(date, timeZone) {
-        const fmt = new Intl.DateTimeFormat("en-US", {
-          timeZone,
+      function grab(date, timeZone) {
+        var fmt = new Intl.DateTimeFormat("en-US", {
+          timeZone: timeZone,
           hourCycle: "h23",
           weekday: "short",
           year: "numeric",
@@ -411,187 +308,155 @@
           day: "numeric",
           hour: "2-digit",
           minute: "2-digit",
-          second: "2-digit",
+          second: "2-digit"
         });
-        return Object.fromEntries(fmt.formatToParts(date).map((p) => [p.type, p.value]));
+        var list = fmt.formatToParts(date);
+        var out = {};
+        for (var i = 0; i < list.length; i++) out[list[i].type] = list[i].value;
+        return out;
+      }
+
+      function numParts(ms, timeZone) {
+        var fmt = new Intl.DateTimeFormat("en-US", {
+          timeZone: timeZone,
+          hourCycle: "h23",
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit"
+        });
+        var list = fmt.formatToParts(new Date(ms));
+        var out = {};
+        for (var i = 0; i < list.length; i++) out[list[i].type] = list[i].value;
+        out.hour = String(Number(out.hour) % 24);
+        return out;
       }
 
       function wallToUtc(y, m, d, h, min, s, timeZone) {
-        let utc = Date.UTC(y, m - 1, d, h, min, s);
-        for (let i = 0; i < 3; i++) {
-          const p = new Intl.DateTimeFormat("en-US", {
-            timeZone,
-            hourCycle: "h23",
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit",
-          }).formatToParts(new Date(utc));
-          const g = Object.fromEntries(p.map((x) => [x.type, x.value]));
-          const got = Date.UTC(+g.year, +g.month - 1, +g.day, +g.hour % 24, +g.minute, +g.second);
+        var utc = Date.UTC(y, m - 1, d, h, min, s);
+        for (var i = 0; i < 3; i++) {
+          var g = numParts(utc, timeZone);
+          var got = Date.UTC(+g.year, +g.month - 1, +g.day, +g.hour, +g.minute, +g.second);
           utc += Date.UTC(y, m - 1, d, h, min, s) - got;
         }
         return utc;
       }
 
       function istMondayStart(now) {
-        const p = new Intl.DateTimeFormat("en-US", {
-          timeZone: IST,
-          hourCycle: "h23",
-          weekday: "short",
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit",
-        }).formatToParts(now);
-        const g = Object.fromEntries(p.map((x) => [x.type, x.value]));
-        const weekday = { Mon: 0, Tue: 1, Wed: 2, Thu: 3, Fri: 4, Sat: 5, Sun: 6 }[g.weekday];
-        const noon = wallToUtc(+g.year, +g.month, +g.day, 12, 0, 0, IST);
-        const mondayNoon = noon - weekday * MS_DAY;
-        const mp = new Intl.DateTimeFormat("en-US", {
-          timeZone: IST,
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit",
-        }).formatToParts(new Date(mondayNoon));
-        const m = Object.fromEntries(mp.map((x) => [x.type, x.value]));
+        var g = grab(now, IST);
+        var weekday = { Mon: 0, Tue: 1, Wed: 2, Thu: 3, Fri: 4, Sat: 5, Sun: 6 }[g.weekday];
+        var nums = numParts(now.getTime(), IST);
+        var noon = wallToUtc(+nums.year, +nums.month, +nums.day, 12, 0, 0, IST);
+        var mondayNoon = noon - weekday * MS_DAY;
+        var m = numParts(mondayNoon, IST);
         return wallToUtc(+m.year, +m.month, +m.day, 0, 0, 0, IST);
       }
 
       function indiaWeeks(now) {
-        const weeks = [];
-        let start = istMondayStart(now);
-        if (start > DEADLINE) return weeks;
-        while (start < DEADLINE && weeks.length < 8) {
-          const next = start + 7 * MS_DAY;
-          const end = Math.min(next, DEADLINE + 1000);
-          weeks.push({ start, end, index: weeks.length + 1 });
+        var weeks = [];
+        var start = istMondayStart(now);
+        while (start < DEADLINE && weeks.length < 6) {
+          var next = start + 7 * MS_DAY;
+          weeks.push({ start: start, end: Math.min(next, DEADLINE + 1000) });
           start = next;
         }
         return weeks;
       }
 
-      function formatWhen(ms, timeZone) {
+      function pretty(ms, timeZone) {
         return new Intl.DateTimeFormat("en-US", {
-          timeZone,
+          timeZone: timeZone,
           weekday: "short",
           month: "short",
           day: "numeric",
           hour: "numeric",
           minute: "2-digit",
-          hour12: true,
+          hour12: true
         }).format(new Date(ms));
       }
 
-      function formatClock(date, timeZone) {
-        const p = parts(date, timeZone);
-        const time = `${p.hour}:${p.minute}:${p.second}`;
-        const day = `${p.weekday}, ${p.month} ${p.day}, ${p.year}`;
-        return { time, day };
+      function rangeLabel(start, end) {
+        var opt = { timeZone: IST, weekday: "short", month: "short", day: "numeric" };
+        var a = new Intl.DateTimeFormat("en-US", opt).format(new Date(start));
+        var b = new Intl.DateTimeFormat("en-US", opt).format(new Date(end - 1000));
+        return a + "  –  " + b;
       }
-
-      function shortRange(start, end) {
-        const a = new Intl.DateTimeFormat("en-US", {
-          timeZone: IST,
-          month: "short",
-          day: "numeric",
-        }).format(new Date(start));
-        const b = new Intl.DateTimeFormat("en-US", {
-          timeZone: IST,
-          month: "short",
-          day: "numeric",
-        }).format(new Date(end - 1000));
-        return `${a} – ${b}`;
-      }
-
-      function renderDays(card, remainingMs) {
-        const intEl = card.querySelector("[data-int]");
-        const fracEl = card.querySelector("[data-frac]");
-        const label = card.querySelector(".days-label");
-        if (remainingMs <= 0) {
-          intEl.textContent = "0";
-          fracEl.textContent = ".0000000";
-          label.textContent = "passed";
-          return;
-        }
-        const days = remainingMs / MS_DAY;
-        const whole = Math.floor(days);
-        const frac = days - whole;
-        intEl.textContent = String(whole);
-        fracEl.textContent = "." + frac.toFixed(7).slice(2);
-      }
-
-      const weeksEl = document.getElementById("weeks");
-      let weekKey = "";
 
       function paintWeeks(now) {
-        const weeks = indiaWeeks(now);
-        const key = weeks.map((w) => w.start).join(",");
+        var weeks = indiaWeeks(now);
+        var key = weeks.map(function (w) { return w.start; }).join(",");
+        var box = document.getElementById("weeks");
         if (key !== weekKey) {
           weekKey = key;
-          weeksEl.style.gridTemplateColumns = `repeat(${Math.max(weeks.length, 1)}, 1fr)`;
-          weeksEl.innerHTML = weeks
-            .map(
-              (w, i) => `<article class="week" data-week="${i}">
-                <div>
-                  <div class="kicker" data-kicker></div>
-                  <div class="range">${shortRange(w.start, w.end)}</div>
-                </div>
-                <div>
-                  <div class="left" data-left>—</div>
-                  <div class="unit" data-unit>left in this India week</div>
-                </div>
-              </article>`
-            )
-            .join("");
+          var html = "";
+          for (var i = 0; i < weeks.length; i++) {
+            html +=
+              '<article class="week" data-week="' + i + '">' +
+              '<div><div class="kicker" data-kicker></div><div class="range">' +
+              rangeLabel(weeks[i].start, weeks[i].end) +
+              "</div></div>" +
+              '<div><div class="left" data-left>—</div><div class="unit" data-unit></div></div>' +
+              "</article>";
+          }
+          box.innerHTML = html;
         }
-        const nodes = weeksEl.querySelectorAll(".week");
-        weeks.forEach((w, i) => {
-          const node = nodes[i];
-          const left = w.end - now.getTime();
-          const current = now.getTime() >= w.start && now.getTime() < w.end;
-          const past = now.getTime() >= w.end;
-          node.classList.toggle("current", current);
-          node.classList.toggle("past", past);
-          const kicker = node.querySelector("[data-kicker]");
-          kicker.textContent = past
+        var nodes = box.querySelectorAll(".week");
+        for (var n = 0; n < weeks.length; n++) {
+          var w = weeks[n];
+          var node = nodes[n];
+          var left = w.end - now.getTime();
+          var current = now.getTime() >= w.start && now.getTime() < w.end;
+          var past = now.getTime() >= w.end;
+          node.className = "week" + (current ? " current" : "") + (past ? " past" : "");
+          var last = w.end >= DEADLINE;
+          node.querySelector("[data-kicker]").textContent = past
             ? "Done"
             : current
-              ? `This India week · ${i + 1} of ${weeks.length}`
-              : `Week ${i + 1} of ${weeks.length}`;
-          const leftEl = node.querySelector("[data-left]");
-          const unit = node.querySelector("[data-unit]");
+              ? "This India week  ·  " + (n + 1) + " of " + weeks.length
+              : "India week  ·  " + (n + 1) + " of " + weeks.length;
+          var leftEl = node.querySelector("[data-left]");
+          var unit = node.querySelector("[data-unit]");
           if (past) {
-            leftEl.textContent = "0";
+            leftEl.textContent = "Done";
             unit.textContent = "this week is over";
           } else if (left < MS_DAY) {
-            const h = Math.floor(left / 3600000);
-            const m = Math.floor((left % 3600000) / 60000);
-            const s = Math.floor((left % 60000) / 1000);
-            leftEl.textContent = `${h}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
-            unit.textContent = w.end > DEADLINE ? "until the deadline" : "left in this India week";
+            var h = Math.floor(left / 3600000);
+            var m = Math.floor((left % 3600000) / 60000);
+            var s = Math.floor((left % 60000) / 1000);
+            leftEl.textContent = h + ":" + (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s;
+            unit.textContent = last ? "until Dec 11, San Francisco" : "left in this India week";
           } else {
             leftEl.textContent = (left / MS_DAY).toFixed(2);
-            unit.textContent = w.end >= DEADLINE ? "days until the deadline" : "days until this week ends";
+            unit.textContent = last ? "days until Dec 11, San Francisco" : "days until this India week ends";
           }
-        });
+        }
       }
 
       function tick() {
-        const now = new Date();
-        const india = formatClock(now, IST);
-        const sf = formatClock(now, SF);
-        document.getElementById("ist-time").textContent = india.time;
-        document.getElementById("ist-date").textContent = india.day;
-        document.getElementById("sf-time").textContent = sf.time;
-        document.getElementById("sf-date").textContent = sf.day;
+        var now = new Date();
+        var india = grab(now, IST);
+        var sf = grab(now, SF);
+        document.getElementById("ist-time").textContent = india.hour + ":" + india.minute + ":" + india.second;
+        document.getElementById("ist-date").textContent = india.weekday + ", " + india.month + " " + india.day + ", " + india.year;
+        document.getElementById("sf-time").textContent = sf.hour + ":" + sf.minute + ":" + sf.second;
+        document.getElementById("sf-date").textContent = sf.weekday + ", " + sf.month + " " + sf.day + ", " + sf.year;
 
-        const remain = DEADLINE - now.getTime();
-        for (const card of document.querySelectorAll(".track")) {
-          renderDays(card, remain);
-          card.querySelector("[data-sf]").textContent = formatWhen(DEADLINE, SF);
-          card.querySelector("[data-ist]").textContent = formatWhen(DEADLINE, IST);
+        var remain = DEADLINE - now.getTime();
+        var intEl = document.getElementById("days-int");
+        var fracEl = document.getElementById("days-frac");
+        var line = document.getElementById("deadline-line");
+        if (remain <= 0) {
+          intEl.textContent = "0";
+          fracEl.textContent = ".0000000";
+          line.textContent = "Dec 11 has passed";
+        } else {
+          var days = remain / MS_DAY;
+          var whole = Math.floor(days);
+          intEl.textContent = String(whole);
+          fracEl.textContent = "." + (days - whole).toFixed(7).slice(2);
+          line.textContent = "days left  ·  " + pretty(DEADLINE, SF) + " PT   ·   " + pretty(DEADLINE, IST) + " IST";
         }
         paintWeeks(now);
       }
