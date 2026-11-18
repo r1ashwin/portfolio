@@ -232,24 +232,16 @@
       }
 
       .week .int {
-        font-size: 4.6vw;
+        font-size: 5.6vw;
         font-weight: 800;
         letter-spacing: -0.06em;
       }
 
       .week .frac {
         margin-top: 0.22em;
-        font-size: 2.15vw;
+        font-size: 2.6vw;
         font-weight: 700;
         letter-spacing: -0.04em;
-      }
-
-      .week .unit {
-        margin-top: 0.35vh;
-        font-size: 1.15vw;
-        color: var(--mute);
-        font-weight: 600;
-        text-align: center;
       }
     </style>
   </head>
@@ -418,7 +410,7 @@
               '<div><div class="kicker" data-kicker></div><div class="range">' +
               rangeLabel(weeks[i].start, weeks[i].end) +
               "</div></div>" +
-              '<div><div class="count"><span class="int" data-int>0</span><span class="frac" data-frac>.0000000</span></div><div class="unit" data-unit></div></div>' +
+              '<div class="count"><span class="int" data-int>0</span><span class="frac" data-frac>.0000000</span></div>' +
               "</article>";
           }
           box.innerHTML = html;
@@ -431,7 +423,6 @@
           var current = now.getTime() >= w.start && now.getTime() < w.end;
           var past = now.getTime() >= w.end;
           node.className = "week" + (current ? " current" : "") + (past ? " past" : "");
-          var last = w.end >= DEADLINE;
           node.querySelector("[data-kicker]").textContent = past
             ? "Done"
             : current
@@ -439,17 +430,14 @@
               : "India week  ·  " + (n + 1) + " of " + weeks.length;
           var intEl = node.querySelector("[data-int]");
           var fracEl = node.querySelector("[data-frac]");
-          var unit = node.querySelector("[data-unit]");
           if (past || left <= 0) {
             intEl.textContent = "0";
             fracEl.textContent = ".0000000";
-            unit.textContent = "this week is over";
           } else {
             var days = left / MS_DAY;
             var whole = Math.floor(days);
             intEl.textContent = String(whole);
             fracEl.textContent = "." + (days - whole).toFixed(7).slice(2);
-            unit.textContent = last ? "days until Dec 11, San Francisco" : "days left in this India week";
           }
         }
       }
