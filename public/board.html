@@ -103,23 +103,17 @@
 
       .hero {
         border-radius: 1.1vw;
-        padding: 1vh 1.4vw;
+        padding: 1vh 1.6vw;
         display: grid;
-        grid-template-columns: 1.15fr 1.4fr 1.15fr;
+        grid-template-columns: auto 1fr auto;
         align-items: center;
-        gap: 1vw;
+        gap: 1.4vw;
       }
 
-      .brand {
+      .marks {
         display: flex;
         align-items: center;
-        gap: 0.8vw;
-        min-width: 0;
-      }
-
-      .brand.right {
-        justify-content: flex-end;
-        text-align: right;
+        gap: 0.7vw;
       }
 
       .logo {
@@ -142,14 +136,21 @@
         letter-spacing: -0.06em;
       }
 
-      .brand .name {
-        font-size: 1.35vw;
-        font-weight: 800;
-        letter-spacing: -0.03em;
+      .since {
+        text-align: right;
+        min-width: 8vw;
       }
 
-      .brand .role {
-        margin-top: 0.15vh;
+      .since .n {
+        font-size: 3.4vw;
+        font-weight: 800;
+        font-variant-numeric: tabular-nums;
+        letter-spacing: -0.04em;
+        line-height: 1;
+      }
+
+      .since .cap {
+        margin-top: 0.45vh;
         font-size: 0.95vw;
         font-weight: 600;
         color: var(--mute);
@@ -267,16 +268,13 @@
       </section>
 
       <section class="hero" aria-label="Days until December 11">
-        <div class="brand">
+        <div class="marks">
           <div class="logo yc" aria-label="Y Combinator">
             <svg viewBox="0 0 48 48" aria-hidden="true">
               <path fill="#fff" d="M13.2 8h6.3l4.5 9.2L28.5 8H34.8L25.7 23.4V40h-5.4V23.4L13.2 8z"></path>
             </svg>
           </div>
-          <div>
-            <div class="name">YC Winter 2027</div>
-            <div class="role">Hear back by this date</div>
-          </div>
+          <div class="logo a16z" aria-label="Andreessen Horowitz">a16z</div>
         </div>
 
         <div class="count">
@@ -286,12 +284,9 @@
           <div class="sub" id="deadline-line">days left</div>
         </div>
 
-        <div class="brand right">
-          <div>
-            <div class="name">a16z speedrun</div>
-            <div class="role">Not rejected · same date for now</div>
-          </div>
-          <div class="logo a16z" aria-label="Andreessen Horowitz">a16z</div>
+        <div class="since" aria-label="Days since the application was submitted">
+          <div class="n" id="since-days">0</div>
+          <div class="cap">days since submit</div>
         </div>
       </section>
 
@@ -300,6 +295,7 @@
 
     <script>
       var DEADLINE = Date.parse("2026-12-12T07:59:59.000Z");
+      var SUBMITTED = Date.parse("2026-11-03T04:00:00.000Z");
       var MS_DAY = 86400000;
       var IST = "Asia/Kolkata";
       var SF = "America/Los_Angeles";
@@ -466,6 +462,9 @@
           fracEl.textContent = "." + (days - whole).toFixed(7).slice(2);
           line.textContent = "days left  ·  " + pretty(DEADLINE, SF) + " PT   ·   " + pretty(DEADLINE, IST) + " IST";
         }
+        var since = Math.floor((now.getTime() - SUBMITTED) / MS_DAY);
+        if (since < 0) since = 0;
+        document.getElementById("since-days").textContent = String(since);
         paintWeeks(now);
       }
 
