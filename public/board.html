@@ -222,12 +222,21 @@
         line-height: 1.05;
       }
 
-      .week .left {
-        font-size: 3.6vw;
-        font-weight: 800;
+      .week .count {
         font-variant-numeric: tabular-nums;
-        letter-spacing: -0.045em;
-        line-height: 1;
+        line-height: 0.85;
+      }
+
+      .week .int {
+        font-size: 4.4vw;
+        font-weight: 800;
+        letter-spacing: -0.06em;
+      }
+
+      .week .frac {
+        font-size: 2.05vw;
+        font-weight: 700;
+        letter-spacing: -0.04em;
       }
 
       .week .unit {
@@ -403,7 +412,7 @@
               '<div><div class="kicker" data-kicker></div><div class="range">' +
               rangeLabel(weeks[i].start, weeks[i].end) +
               "</div></div>" +
-              '<div><div class="left" data-left>—</div><div class="unit" data-unit></div></div>' +
+              '<div><div class="count"><span class="int" data-int>0</span><span class="frac" data-frac>.0000000</span></div><div class="unit" data-unit></div></div>' +
               "</article>";
           }
           box.innerHTML = html;
@@ -422,20 +431,19 @@
             : current
               ? "This India week  ·  " + (n + 1) + " of " + weeks.length
               : "India week  ·  " + (n + 1) + " of " + weeks.length;
-          var leftEl = node.querySelector("[data-left]");
+          var intEl = node.querySelector("[data-int]");
+          var fracEl = node.querySelector("[data-frac]");
           var unit = node.querySelector("[data-unit]");
-          if (past) {
-            leftEl.textContent = "Done";
+          if (past || left <= 0) {
+            intEl.textContent = "0";
+            fracEl.textContent = ".0000000";
             unit.textContent = "this week is over";
-          } else if (left < MS_DAY) {
-            var h = Math.floor(left / 3600000);
-            var m = Math.floor((left % 3600000) / 60000);
-            var s = Math.floor((left % 60000) / 1000);
-            leftEl.textContent = h + ":" + (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s;
-            unit.textContent = last ? "until Dec 11, San Francisco" : "left in this India week";
           } else {
-            leftEl.textContent = (left / MS_DAY).toFixed(2);
-            unit.textContent = last ? "days until Dec 11, San Francisco" : "days until this India week ends";
+            var days = left / MS_DAY;
+            var whole = Math.floor(days);
+            intEl.textContent = String(whole);
+            fracEl.textContent = "." + (days - whole).toFixed(7).slice(2);
+            unit.textContent = last ? "days until Dec 11, San Francisco" : "days left in this India week";
           }
         }
       }
