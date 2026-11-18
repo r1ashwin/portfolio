@@ -191,10 +191,11 @@
 
       .week {
         border-radius: 1.1vw;
-        padding: 1.5vh 1.4vw;
+        padding: 1.2vh 1.5vw;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: center;
+        gap: 1.1vh;
       }
 
       .week.current {
@@ -223,24 +224,27 @@
       }
 
       .week .count {
+        display: flex;
+        align-items: flex-start;
         font-variant-numeric: tabular-nums;
-        line-height: 0.85;
+        line-height: 0.82;
       }
 
       .week .int {
-        font-size: 4.4vw;
+        font-size: 4.6vw;
         font-weight: 800;
         letter-spacing: -0.06em;
       }
 
       .week .frac {
-        font-size: 2.05vw;
+        margin-top: 0.22em;
+        font-size: 2.15vw;
         font-weight: 700;
         letter-spacing: -0.04em;
       }
 
       .week .unit {
-        margin-top: 0.5vh;
+        margin-top: 0.35vh;
         font-size: 1.15vw;
         color: var(--mute);
         font-weight: 600;
